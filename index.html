@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/bootstrap-utilities.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">   
+    <title>Home Page</title>
+</head>
+<body>
+    <nav class="desktop">
+        <ul>
+        <li><a href="#welcome"><img src="assets/images/Folder_Icon.png" alt="Welcome" class="icon solid fa-folder"><span>Welcome</span></a></li>
+        <li><a href="#whatawebsiteFoler"><img src="assets/images/Folder_Icon.png" alt="What's a Website?" class="icon solid fa-folder"><span>What's a Website</span></a></li>
+        <li><a href="#htmlFolder"><img src="assets/images/Folder_Icon.png" alt="HTML" class="icon solid fa-folder"><span>HTML</span></a></li>
+        <li><a href="#cssFoler"><img src="assets/images/Folder_Icon.png" alt="CSS" class="icon solid fa-folder"><span>CSS</span></a></li>
+        <li><a href="#javascriptFoler"><img src="assets/images/Folder_Icon.png" alt="JavaScript" class="icon solid fa-folder"><span>JavaScript</span></a></li>
+        <li><a href="#aboutFolder"><img src="assets/images/Folder_Icon.png" alt="About" class="icon solid fa-folder"><span>About</span></a></li>
+        <li><a href="#recylcleBin"><img src="assets/images/Recycling_Bin_Icon.png" alt="Recycling Bin" class="icon solid fa-folder"><span>Recycle Bin</span></a></li>
+        <li><a href="#myComputer"><img src="assets/images/My_Computer_Icon.png" alt="My Computer" class="icon solid fa-folder"><span>My Computer</span></a></li> 
+        </ul>
+    </nav>
+    <main>
+
+        <div class="window">
+        <!-- Title bar -->
+        <div class="window-header">
+            <span class="title">What is a Website? - Microsoft Internet Explorer</span>
+            <div class="window-controls">
+            <button>-</button>
+            <button>□</button>
+            <button>X</button>
+            </div>
+        </div>
+
+        <!-- Menu bar -->
+        <div class="window-menu">
+            <button>File</button>
+            <button>Edit</button>
+            <button>View</button>
+            <button>Favorites</button>
+            <button>Tools</button>
+            <button>Help</button>
+        </div>
+
+        <!-- Address bar -->
+        <div class="window-address">
+            <label>Address:</label>
+            <input type="text" value="https://AnatomyOfAWebsite.git" />
+            <button>Go</button>
+        </div>
+
+        <!-- Content area -->
+        <div class="window-body">
+            <h1>What is a Website?</h1>
+            <p><em>This... is a website!</em></p>
+            <p>(not final look, will make this more modern and aesthetic + readable)</p>
+            <p>
+            this ‘folder’s’ window should be interactive (information will appear via
+            hover/click, it’s scrollable, it has a menu, like most websites: basically,
+            it’s the standard look of a basic website but all parts within it are moveable
+            and interactable. if we all agree on it, we can even make it look like those
+            basic modern sites you can drag and drop lol)).
+            </p>
+            <p>
+            ... and behind all these are three essential technologies to ensure the
+            website is functioning properly: these are
+            <b>HTML</b> (Hypertext Markup Language),
+            <b>CSS</b> (Cascading Style Sheets), and
+            <b>JavaScript</b>. Click on the other folders to learn more!
+            </p>
+        </div>
+
+        <!-- Status bar -->
+        <div class="window-status">
+            <span>Done</span>
+        </div>
+        </div>
+        
+    </main>
+    <footer>
+        <button onclick="window.close()">End</button>
+        <span class="ml-3 badge badge-info" id="currentTime"></span>
+       
+        
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Your custom JS -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
