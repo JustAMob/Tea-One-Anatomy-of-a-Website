@@ -10,6 +10,7 @@
 <body>
     <nav class="desktop">
         <ul>
+       
         <li><a href="#welcome"><img src="assets/images/Folder_Icon.png" alt="Welcome" class="icon solid fa-folder"><span>Welcome</span></a></li>
         <li><a href="#whatawebsiteFoler"><img src="assets/images/Folder_Icon.png" alt="What's a Website?" class="icon solid fa-folder"><span>What's a Website</span></a></li>
         <li><a href="#htmlFolder"><img src="assets/images/Folder_Icon.png" alt="HTML" class="icon solid fa-folder"><span>HTML</span></a></li>
@@ -22,14 +23,15 @@
     </nav>
     <main>
 
-        <div class="window">
+        <!-- Welcome Window -->
+        <div id="websiteWindow" class="window hidden">
         <!-- Title bar -->
-        <div class="window-header">
+        <div class="window-header" onmousedown="dragStart(event, this.parentElement)">
             <span class="title">What is a Website? - Microsoft Internet Explorer</span>
             <div class="window-controls">
-            <button>-</button>
-            <button>□</button>
-            <button>X</button>
+                <button onclick="minimizeWindow(this)">-</button>
+                <button onclick="maximizeWindow(this)">□</button>
+                <button onclick="closeWindow(this)">X</button>
             </div>
         </div>
 
