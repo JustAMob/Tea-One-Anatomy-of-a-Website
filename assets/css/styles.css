@@ -9,6 +9,14 @@ body {
   height: 100vh;
 }
 
+.content-block {
+  display: none; /* hidden by default */
+}
+
+.content-block.active {
+  display: block; /* only the active one is visible */
+}
+
 /********************************************
  * LAYOUT (major page sections)
  ********************************************/
