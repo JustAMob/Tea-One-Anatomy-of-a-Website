@@ -69,7 +69,7 @@ body {
 
 /*MODULES*/
 
-/* === Desktop Icon (folder) === */
+/* === Desktop Icons === */
 .desktop a {
   display: flex;
   flex-direction: column; /* stack image + text */
