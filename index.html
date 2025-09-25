@@ -13,8 +13,8 @@
         <li><a href="#welcome"><img src="assets/images/Folder_Icon.png" alt="Welcome" class="icon solid fa-folder"><span>Welcome</span></a></li>
         <li><a href="#whatawebsiteFoler"><img src="assets/images/Folder_Icon.png" alt="What's a Website?" class="icon solid fa-folder"><span>What's a Website</span></a></li>
         <li><a href="#htmlFolder"><img src="assets/images/Folder_Icon.png" alt="HTML" class="icon solid fa-folder"><span>HTML</span></a></li>
-        <li><a href="#cssFoler"><img src="assets/images/Folder_Icon.png" alt="CSS" class="icon solid fa-folder"><span>CSS</span></a></li>
-        <li><a href="#javascriptFoler"><img src="assets/images/Folder_Icon.png" alt="JavaScript" class="icon solid fa-folder"><span>JavaScript</span></a></li>
+        <li><a href="#cssFolder"><img src="assets/images/Folder_Icon.png" alt="CSS" class="icon solid fa-folder"><span>CSS</span></a></li>
+        <li><a href="#javascriptFolder"><img src="assets/images/Folder_Icon.png" alt="JavaScript" class="icon solid fa-folder"><span>JavaScript</span></a></li>
         <li><a href="#aboutFolder"><img src="assets/images/Folder_Icon.png" alt="About" class="icon solid fa-folder"><span>About</span></a></li>
         <li><a href="#recylcleBin"><img src="assets/images/Recycling_Bin_Icon.png" alt="Recycling Bin" class="icon solid fa-folder"><span>Recycle Bin</span></a></li>
         <li><a href="#myComputer"><img src="assets/images/My_Computer_Icon.png" alt="My Computer" class="icon solid fa-folder"><span>My Computer</span></a></li> 
@@ -78,11 +78,19 @@
         </div>
         
     </main>
-    <footer>
-        <button onclick="window.close()">End</button>
-        <span class="ml-3 badge badge-info" id="currentTime"></span>
-       
+    <footer class="taskbar">
         
+         <!-- Start button -->
+        <div class="start-button">
+            <button>end</button>
+        </div>
+        
+        <!-- System tray -->
+        <div class="system-tray">
+            <span class="lang">EN</span>
+            <span id="currentTime"></span>
+        </div>
+
     </footer>
     
     <!-- Bootstrap JS -->

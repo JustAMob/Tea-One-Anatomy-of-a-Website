@@ -1,13 +1,19 @@
-
+/********************************************
+ * BASE (default element styles, resets, fonts)
+ ********************************************/
 body {
   margin: 0;
   font-family: "Courier New", monospace;
-  background: url('https://w0.peakpx.com/wallpaper/274/516/HD-wallpaper-windows-xp-open-field-expanse-version-3-nature-technology-field-expanse-windows-xp-windows-xp-nostalgia-background-green-field-open-field-windows-green-blue-sky-blue.jpg') no-repeat center center fixed;
+  background: url('../images/WindowsXPBackground.jpg') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
 }
 
-/* Folder icon styles */
+/********************************************
+ * LAYOUT (major page sections)
+ ********************************************/
+
+/* Desktop area (folders + icons) */
 .desktop ul {
   list-style: none;
   padding: 0;
@@ -26,41 +32,7 @@ body {
   margin: 20px 0; /* spacing between icons */
 }
 
-.desktop a {
-  display: flex;
-  flex-direction: column; /* stack image + text */
-  align-items: center;    /* keep them centered together */
-  text-decoration: none;
-  color: white;
-  font-size: 10px;
-  font-family: Arial, sans-serif;
-  text-align: center;     /* center the text under the icon */
-  width: 80px;            /* consistent "desktop icon" width */
-}
-
-/* Icon images */
-.desktop a img {
-  width: 45px;
-  height: 45px;
-  display: block;
-  margin: 0 auto 5px auto; /* center the icon with space below */
-}
-
-/* Label text */
-.desktop a span {
-  display: block;
-  line-height: 1.2;
-  margin-top: 2px;
-}
-
-/* Hover effect */
-.desktop a:hover span {
-  text-decoration: underline;
-}
-
-/* End of Folder icon Styles */
-
-/* Window Styles */
+/* Windows (main application windows) */
 .window {
   width: 600px;
   background: white;
@@ -71,11 +43,63 @@ body {
   flex-direction: column;
   box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
   position: absolute;
-  right: 60px;
-  bottom: 80px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-/* Title bar */
+/* Taskbar (bottom section with Start, tasks, tray) */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35px;
+  background: #2b2b2b;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  border-top: 2px solid #000;
+  padding: 0 5px;
+}
+
+
+/*MODULES*/
+
+/* === Desktop Icon (folder) === */
+.desktop a {
+  display: flex;
+  flex-direction: column; /* stack image + text */
+  align-items: center;    /* center image + text */
+  text-decoration: none;
+  color: white;
+  font-size: 10px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  width: 80px; /* consistent "desktop icon" width */
+}
+
+/* Icon images */
+.desktop a img {
+  width: 45px;
+  height: 45px;
+  display: block;
+  margin: 0 auto 5px auto; /* icon centered with space below */
+}
+
+/* Label text */
+.desktop a span {
+  display: block;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+/* === Window Modules === */
+
+/* Window header (blue title bar) */
 .window-header {
   background: #000080;
   color: white;
@@ -86,6 +110,7 @@ body {
   font-weight: bold;
 }
 
+/* Window control buttons (minimize, maximize, close) */
 .window-controls button {
   background: #dcdcdc;
   border: 1px solid #888;
@@ -137,12 +162,12 @@ body {
   cursor: pointer;
 }
 
-/* Body */
+/* Window body/content */
 .window-body {
   padding: 10px;
   overflow-y: auto;
   flex: 1;
-  text-align: center; /* Center the content */
+  text-align: center; /* center content */
 }
 
 /* Status bar */
@@ -153,7 +178,41 @@ body {
   font-size: 12px;
   color: #333;
 }
-/* End of Window Styles */
+
+/* === Taskbar Modules === */
+
+/* Start button */
+.start-button button {
+  background: linear-gradient(#3c3c3c, #1a1a1a);
+  color: white;
+  border: 1px solid #111;
+  padding: 5px 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* System tray */
+.system-tray {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.system-tray .lang {
+  background: #444;
+  padding: 2px 5px;
+  border: 1px solid #222;
+}
+
+/********************************************
+ * STATES (hover, active, hidden, etc.)
+ ********************************************/
+
+/* Desktop icon hover */
+.desktop a:hover span {
+  text-decoration: underline;
+}
+
 
 .start-btn {
   position: fixed;
@@ -161,7 +220,7 @@ body {
   left: 0;
   width: 120px;
   height: 40px;
-  background-color: #c0c0c0;  /* Windows 95 grey */
+  background-color: #c0c0c0;
   border: 2px solid #000;
   font-weight: bold;
   text-align: left;
