@@ -1,3 +1,37 @@
+/* === CSS Reset === */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-size: 100%;
+  line-height: 1.5;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
 
 /* Base */
 
@@ -211,13 +245,17 @@ body {
 }
 
 .content-block {
-  display: none; /* hidden by default */
+  display: none; /* hide everything by default */
 }
 
-.content-block.active {
-  display: block; /* only the active one is visible */
+.content-block:target {
+  display: block; /* only show the one that matches the hash in URL */
 }
 
+/* Optional: show Welcome by default when no target is active */
+.window-body:not(:has(:target)) #welcome {
+  display: block;
+}
 
 .start-btn {
   position: fixed;

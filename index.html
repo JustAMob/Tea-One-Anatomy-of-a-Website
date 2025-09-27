@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/bootstrap-utilities.min.css">
+    <!-- Bootstrap CSS  would be implemeted later-->
     <link rel="stylesheet" href="assets/css/styles.css">   
     <title>Home Page</title>
 </head>
@@ -26,12 +26,12 @@
         <!-- Welcome Window -->
         <div id="websiteWindow" class="window hidden">
         <!-- Title bar -->
-        <div class="window-header" onmousedown="dragStart(event, this.parentElement)">
+        <div class="window-header">
             <span class="title">What is a Website? - Microsoft Internet Explorer</span>
             <div class="window-controls">
-                <button onclick="minimizeWindow(this)">-</button>
-                <button onclick="maximizeWindow(this)">□</button>
-                <button onclick="closeWindow(this)">X</button>
+                <button >-</button>
+                <button >□</button>
+                <button >X</button>
             </div>
         </div>
 
@@ -48,7 +48,7 @@
         <!-- Address bar -->
         <div class="window-address">
             <label>Address:</label>
-            <input type="text" value="https://AnatomyOfAWebsite.git" />
+            <input type="text" value="https://justamob.github.io/Tea-One-Anatomy-of-a-Website/" />
             <button>Go</button>
         </div>
 
@@ -56,7 +56,7 @@
         <div class="window-body" >
            
          <!-- Default (Welcome) -->
-            <div id="welcome" class="content-block active">
+            <div id="welcome" class="content-block">
                 <h1>What is a Website?</h1>
                 <p><em>This... is a website!</em></p>
                 <p>(not final look, will make this more modern and aesthetic + readable)</p>
@@ -95,9 +95,9 @@
             </div>
 
             <!-- Fun Extra: My Dog -->
-            <div id="dogFolder" class="content-block">
-                <h1>My Dog 🐶</h1>
-                <p>This is my awesome dog. He loves running around and sleeping next to me while I code!</p>
+            <div id="aboutFolder" class="content-block">
+                <h1>Tea One</h1>
+                <p>This website is made by Cruz, Encillo, Igdanes, Lu, and Samaniego </p>
             </div>
         
             
@@ -127,8 +127,8 @@
     </footer>
     
     <!-- Bootstrap JS -->
-    <script src="assets/js/bootstrap.min.js"></script>
+    
     <!-- Your custom JS -->
-    <script src="assets/js/script.js"></script>
+   
 </body>
 </html>
