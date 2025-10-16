@@ -241,3 +241,30 @@ body {
   text-align: left;
   padding-left: 10px;
 }
+
+/* === TASKBAR BUTTONS === */
+.task-buttons {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+  justify-content: flex-start;
+  margin: 0 10px;
+}
+
+.task-button {
+  background: #444;
+  border: 1px solid #222;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.task-button.active {
+  background: #666;
+  border: 1px solid #333;
+}
+
+.hidden {
+  display: none !important;
+}

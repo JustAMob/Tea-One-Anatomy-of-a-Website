@@ -1,10 +1,12 @@
+// === CLOCK FUNCTION ===
 function updateTime() {
-    document.getElementById('currentTime').textContent = new Date().toLocaleTimeString();
+  document.getElementById('currentTime').textContent = new Date().toLocaleTimeString();
 }
 setInterval(updateTime, 1000);
 updateTime();
 
- // === WINDOW CONTROL FUNCTIONS ===
+
+// === WINDOW CONTROL FUNCTIONS ===
 
 // Open window by ID
 function openWindow(id) {
@@ -15,15 +17,29 @@ function openWindow(id) {
 // Close window
 function closeWindow(btn) {
   const win = btn.closest(".window");
-  if (win) win.classList.add("hidden");
+  if (!win) return;
+
+  // remove from taskbar
+  const id = win.dataset.id;
+  const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
+  if (taskBtn) taskBtn.remove();
+
+  win.remove();
 }
 
 // Minimize (toggle visibility of window body)
 function minimizeWindow(btn) {
   const win = btn.closest(".window");
-  const body = win?.querySelector(".window-body");
-  if (body) {
-    body.style.display = body.style.display === "none" ? "block" : "none";
+  if (!win) return;
+
+  // Hide the entire window
+  win.style.display = "none";
+
+  // Deactivate the taskbar button
+  const id = win.dataset.id;
+  const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
+  if (taskBtn) {
+    taskBtn.classList.remove("active");
   }
 }
 
@@ -57,7 +73,6 @@ function maximizeWindow(btn) {
 }
 
 // === DRAG FUNCTIONALITY ===
-
 let currentWindow = null;
 let offsetX = 0, offsetY = 0;
 
@@ -68,6 +83,9 @@ function dragStart(e, win) {
   offsetX = e.clientX - win.offsetLeft;
   offsetY = e.clientY - win.offsetTop;
 
+  // Bring to front
+  win.style.zIndex = ++zCounter;
+
   document.addEventListener("mousemove", dragMove);
   document.addEventListener("mouseup", dragEnd);
 }
@@ -76,11 +94,9 @@ function dragMove(e) {
   if (!currentWindow) return;
   e.preventDefault();
 
-  // Calculate new position
   let x = e.clientX - offsetX;
   let y = e.clientY - offsetY;
 
-  // Keep window inside viewport
   const maxX = window.innerWidth - currentWindow.offsetWidth;
   const maxY = window.innerHeight - currentWindow.offsetHeight;
 
@@ -92,7 +108,7 @@ function dragMove(e) {
   Object.assign(currentWindow.style, {
     left: `${x}px`,
     top: `${y}px`,
-    transform: "none", // remove center transform when dragging
+    transform: "none",
   });
 }
 
@@ -101,3 +117,108 @@ function dragEnd() {
   document.removeEventListener("mouseup", dragEnd);
   currentWindow = null;
 }
+
+// === MULTI-WINDOW + TASKBAR LOGIC ===
+const taskbar = document.getElementById("task-buttons");
+let zCounter = 100;
+
+// When a folder is clicked on the desktop
+document.querySelectorAll(".desktop a").forEach(folder => {
+  folder.addEventListener("click", e => {
+    e.preventDefault();
+    const folderId = folder.getAttribute("href").replace("#", "");
+    const folderName = folder.querySelector("span").textContent;
+    createWindow(folderId, folderName);
+  });
+});
+
+// Create a new window from the template
+function createWindow(id, title) {
+  // Check if the window is already open
+  let existingWindow = document.querySelector(`.window[data-id="${id}"]`);
+  if (existingWindow) {
+    // If it's hidden, show it again
+    if (existingWindow.style.display === "none") {
+      existingWindow.style.display = "flex";
+      const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
+      if (taskBtn) taskBtn.classList.add("active");
+    }
+    bringToFront(existingWindow);
+    return;
+  }
+
+  // Use the permanent hidden template as the clone source
+  const template = document.getElementById("windowTemplate");
+  if (!template) {
+    console.error("Missing #windowTemplate in HTML!");
+    return;
+  }
+
+  const newWin = template.cloneNode(true);
+  newWin.classList.remove("hidden");
+  newWin.id = `${id}-window`;
+  newWin.dataset.id = id;
+
+  // Update window title
+  const titleSpan = newWin.querySelector(".window-title") || newWin.querySelector(".title");
+  if (titleSpan) titleSpan.textContent = `${title} - Microsoft Internet Explorer`;
+
+  // Randomized positioning (so they don't overlap exactly)
+  newWin.style.top = `${100 + Math.random() * 100}px`;
+  newWin.style.left = `${200 + Math.random() * 100}px`;
+  newWin.style.zIndex = ++zCounter;
+  newWin.style.transform = "none";
+
+  // Inject specific folder content
+  const body = newWin.querySelector(".window-body");
+  if (body) {
+    const content = document.getElementById(id);
+    body.innerHTML = content ? content.innerHTML : `<p>No content found for ${title}.</p>`;
+  }
+
+  // Add window to page
+  document.body.appendChild(newWin);
+
+  // Create taskbar button
+  const taskBtn = document.createElement("button");
+  taskBtn.classList.add("task-button", "active");
+  taskBtn.textContent = title;
+  taskBtn.dataset.id = id;
+  taskbar.appendChild(taskBtn);
+
+  // Clicking taskbar button toggles visibility
+  taskBtn.addEventListener("click", () => {
+    if (newWin.style.display === "none") {
+      newWin.style.display = "flex";
+      bringToFront(newWin);
+      taskBtn.classList.add("active");
+    } else {
+      newWin.style.display = "none";
+      taskBtn.classList.remove("active");
+    }
+  });
+
+  // Add close button functionality (so taskbar button also clears)
+  const closeBtn = newWin.querySelector(".window-controls button:last-child");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      newWin.remove();
+      taskBtn.remove();
+    });
+  }
+
+  bringToFront(newWin);
+}
+
+// Bring window to front
+function bringToFront(win) {
+  document.querySelectorAll(".window").forEach(w => w.classList.remove("active"));
+  win.classList.add("active");
+  win.style.zIndex = ++zCounter;
+}
+
+// === INITIALIZE DEFAULT WINDOW TASKBAR BUTTON ===
+window.addEventListener("DOMContentLoaded", () => {
+  // Open the default Welcome window using the same template logic
+  createWindow("welcome", "Welcome");
+});
