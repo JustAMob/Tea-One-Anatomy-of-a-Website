@@ -1,15 +1,30 @@
 // === CLOCK FUNCTION ===
 function updateTime() {
+    const now = new Date();
 
-  const options = {
+    // 1. Time options 
+    const timeOptions = {
         hour: 'numeric', 
         minute: '2-digit', 
         hour12: true
     };
+    const currentTimeString = now.toLocaleTimeString('en-US', timeOptions);
 
-  document.getElementById('currentTime').textContent = new Date().toLocaleTimeString('en-US', options);
+    // 2. Date options 
+    const dateOptions = {
+        month: '2-digit', // e.g., 10
+        day: '2-digit',   // e.g., 19
+        year: 'numeric'   // e.g., 2025
+    };
+    const currentDateString = now.toLocaleDateString('en-US', dateOptions);
+
+    // 3. Update the HTML elements )
+    const timeElement = document.getElementById('currentTime');
+    const dateElement = document.getElementById('currentDate');
+
+    if (timeElement) timeElement.textContent = currentTimeString;
+    if (dateElement) dateElement.textContent = currentDateString;
 }
-
 
 setInterval(updateTime, 1000);
 updateTime();
