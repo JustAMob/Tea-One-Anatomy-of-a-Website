@@ -46,7 +46,21 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  cursor: url('assets/cursors/arrow.cur'), default;
 }
+
+a, button, .task-button, .window-controls button {
+    cursor: url('assets/cursors/Cursor_15.cur'), pointer;
+}
+
+.window-header {
+    cursor: url('assets/cursors/Cursor_10.cur'), move; 
+}
+.window-header:active {
+    cursor: grabbing; 
+}
+
 
 /* === DESKTOP === */
 
@@ -257,6 +271,8 @@ body {
   resize: both;
   overflow: hidden; /* Hide scrollbars on the window container itself */
   z-index: 100;
+
+  cursor: url('assets/cursors/Cursor_6.cur'), default;
 }
 
 /* Header Bar */
@@ -300,13 +316,21 @@ body {
   /* Neobrutalism Button Look */
   border: 2px solid #000000;
   box-shadow: 2px 2px 0px #000000;
-  cursor: pointer;
+  cursor: url('assets/cursors/Cursor_15.cur'), pointer;
     
   transition: all 0.1s ease;
 
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.window-controls button:hover {
+    
+    background-color: #3e5085; 
+    box-shadow: 2px 2px 0px #000000;
+    
+    transform: none; 
 }
 
 .window-controls button:active {
