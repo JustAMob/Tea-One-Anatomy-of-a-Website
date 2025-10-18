@@ -7,6 +7,15 @@
   box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'W95FA';
+    src: url('../fonts/w95fa.woff') format('woff'),
+         url('../fonts/w95fa.woff2') format('woff'),
+         url('../fonts/w95fa.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html, body {
   height: 100%;
   overflow: hidden;
@@ -38,7 +47,7 @@ ul, ol {
 
 /* === BASE === */
 body {
-  font-family: "Courier New", monospace;
+  font-family: 'W95FA', 'Arial', sans-serif;
   background: url('../images/Kahel-Na-Maayos-Na-Talaga.png') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
@@ -80,7 +89,7 @@ a, button, .task-button, .window-controls button {
   justify-content: flex-start;
 
   font-size: 14px;
-  font-family: Arial, sans-serif;
+  font-family: 'W95FA', 'Arial', sans-serif;
   color: white;
 
   text-shadow:
@@ -140,7 +149,7 @@ a, button, .task-button, .window-controls button {
   color: white;
   text-align: center;
 
-  font-family: "Arial", sans-serif;
+  font-family: 'W95FA', 'Arial', sans-serif;
   font-weight: 700; 
   text-transform: lowercase;
 }
@@ -262,7 +271,7 @@ a, button, .task-button, .window-controls button {
   border: 3px solid #000000; 
   box-shadow: 8px 8px 0px #000000;
     
-  font-family: "Arial", sans-serif;
+  font-family: 'W95FA', 'Arial', sans-serif;
   font-size: 14px;
     
   display: flex;
@@ -476,7 +485,7 @@ a, button, .task-button, .window-controls button {
   justify-content: flex-start;
   border-top: 3px solid #000000;
 
-  font-family: Arial, sans-serif;
+  font-family: 'W95FA', 'Arial', sans-serif;
   font-size: 14px;
 }
 
