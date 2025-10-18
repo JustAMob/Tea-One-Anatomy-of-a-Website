@@ -36,6 +36,14 @@ function closeWindow(btn) {
   const win = btn.closest(".window");
   if (!win) return;
 
+  // 1. Start the fade-out animation
+    win.style.opacity = '0';
+    
+    // 2. Wait for the fade (150ms) before removing the element
+    setTimeout(() => {
+        win.remove(); 
+    }, 150);
+
   // remove from taskbar
   const id = win.dataset.id;
   const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
@@ -54,6 +62,18 @@ function closeWindow(btn) {
 function minimizeWindow(btn) {
   const win = btn.closest(".window");
   if (!win) return;
+  
+
+  // 1. Start the fade-out animation instantly
+    win.style.opacity = '0';
+    
+  // 2. Wait for the fade (150ms) before hiding display
+    setTimeout(() => {
+        win.style.display = 'none';
+        
+  // IMPORTANT: Reset opacity back to 1 for when it's restored,,,
+        win.style.opacity = '1'; 
+    }, 150);
 
   // Hide the entire window
   win.style.display = "none";
@@ -215,9 +235,11 @@ function createWindow(id, title) {
   // Clicking taskbar button toggles visibility
   taskBtn.addEventListener("click", () => {
     if (newWin.style.display === "none") {
+      
       newWin.style.display = "flex";
       bringToFront(newWin);
       taskBtn.classList.add("active");
+
     } else {
       newWin.style.display = "none";
       taskBtn.classList.remove("active");

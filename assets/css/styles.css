@@ -8,8 +8,11 @@
 }
 
 @font-face {
-    font-family: 'Minecraftia';
-    src: url('../fonts/Minecraftia-Regular.ttf') format('truetype');
+    font-family: 'Dogica';
+    src:url('../fonts/dogicapixel.ttf') format('truetype'),
+        url('../fonts/dogicapixelbold.ttf') format('truetype'),
+        url('../fonts/dogicapixel.otf') format('opentype'),
+        url('../fonts/dogicapixelbold.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -45,7 +48,7 @@ ul, ol {
 
 /* === BASE === */
 body {
-  font-family: 'Minecraft', "Arial", sans-serif;
+  font-family: 'Dogica', "Arial", sans-serif;
   background: url('../images/Kahel-Na-Maayos-Na-Talaga.png') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
@@ -86,8 +89,8 @@ a, button, .task-button, .window-controls button {
   align-items: center;
   justify-content: flex-start;
 
-  font-size: 14px;
-  font-family: 'Minecraft', "Arial", sans-serif;
+  font-size: 11px;
+  font-family: 'Dogica', "Arial", sans-serif;
   color: white;
 
   text-shadow:
@@ -147,7 +150,7 @@ a, button, .task-button, .window-controls button {
   color: white;
   text-align: center;
 
-  font-family: 'Minecraft', "Arial", sans-serif;
+  font-family: 'Dogica', "Arial", sans-serif;
   font-weight: 700; 
   text-transform: lowercase;
 }
@@ -172,6 +175,8 @@ a, button, .task-button, .window-controls button {
   background-color: rgba(62, 80, 133, 0.7); 
   text-decoration: none; 
   border: 3px solid #ffffff;
+
+  padding: 3px 7px;
 }
 
 .desktop-icon-link {
@@ -264,13 +269,14 @@ a, button, .task-button, .window-controls button {
   height: 500px; 
 
   transform: translate(-50%, -50%) translateY(-25px);
+  transition: opacity 0.15s ease-out;
   
   background-color: #FFFFFF; 
   border: 3px solid #000000; 
   box-shadow: 8px 8px 0px #000000;
     
-  font-family: 'Minecraft', "Arial", sans-serif;
-  font-size: 14px;
+  font-family: 'Dogica', "Arial", sans-serif;
+  font-size: 12px;
     
   display: flex;
   flex-direction: column;
@@ -394,14 +400,26 @@ a, button, .task-button, .window-controls button {
   padding: 5px 10px;
 }
 
-.window-menu button {
+.window-menu a {
   background: transparent;
   border: none;
+
+  border-bottom: 3px solid transparent;
+
+
   margin-right: 15px; 
   cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: bold;
   color: #000000;
+
+  display: inline-block;
+}
+
+.window-menu a:hover {
+
+  border-bottom: 3px solid #000000;
+  padding-bottom: 0;
 }
 
 /* Address Bar */
@@ -483,8 +501,8 @@ a, button, .task-button, .window-controls button {
   justify-content: flex-start;
   border-top: 3px solid #000000;
 
-  font-family: 'Minecraft', "Arial", sans-serif;
-  font-size: 14px;
+  font-family: 'Dogica', "Arial", sans-serif;
+  font-size: 11px;
 }
 
 /* Start Button */
@@ -494,7 +512,7 @@ a, button, .task-button, .window-controls button {
   color: #000000;
     
   /* Font and padding to size the button */
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 900;
   padding: 4px 12px; 
   margin: 0;
@@ -609,7 +627,7 @@ a, button, .task-button, .window-controls button {
     /* Text and Sizing */
     padding: 5px 10px;
     cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 780;
     text-transform: lowercase;
     
@@ -623,6 +641,7 @@ a, button, .task-button, .window-controls button {
     height: 85%;
 
     transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out, margin-bottom 0.2s ease-out;
+
 }
 
 .task-button:hover:not(.active) {
