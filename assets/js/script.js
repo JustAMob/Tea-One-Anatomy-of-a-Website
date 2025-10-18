@@ -1,7 +1,16 @@
 // === CLOCK FUNCTION ===
 function updateTime() {
-  document.getElementById('currentTime').textContent = new Date().toLocaleTimeString();
+
+  const options = {
+        hour: 'numeric', 
+        minute: '2-digit', 
+        hour12: true
+    };
+
+  document.getElementById('currentTime').textContent = new Date().toLocaleTimeString('en-US', options);
 }
+
+
 setInterval(updateTime, 1000);
 updateTime();
 

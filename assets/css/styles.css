@@ -9,8 +9,11 @@
 
 html, body {
   height: 100%;
+  overflow: hidden;
   font-size: 100%;
   line-height: 1.5;
+  margin: 0; 
+  padding: 0;
 }
 
 img, picture, video, canvas, svg {
@@ -35,9 +38,13 @@ ul, ol {
 /* === BASE === */
 body {
   font-family: "Courier New", monospace;
-  background: url('../images/WindowsXPBackground.jpg') no-repeat center center fixed;
+  background: url('../images/Kahel-Na-Maayos-Talaga.png') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* === DESKTOP === */
@@ -82,6 +89,8 @@ body {
 .desktop a:hover span {
   text-decoration: underline;
 }
+
+
 
 /* === WINDOWS === */
 .window {
@@ -173,45 +182,92 @@ body {
   color: #333;
 }
 
+
 /* === TASKBAR === */
 .taskbar {
+  
+  /* POSITIONING AND SIZEE */
   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
-  height: 35px;
-  background: #2b2b2b;
-  color: white;
+  width: 100%;
+  height: 50px; 
+
+  background-color: #221045;
+  color: #FFFFFF;
+
+  /* Layout using Flexbox: Start Button | Task Buttons | System Tray */
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-top: 2px solid #000;
-  padding: 0 5px;
+  padding: 3px 15px 3px 15px;
+
+  justify-content: flex-start;
+  border-top: 3px solid #000000;
+
   font-family: Arial, sans-serif;
   font-size: 14px;
 }
 
 /* Start Button */
 .start-button button {
-  background: linear-gradient(#3c3c3c, #1a1a1a);
-  color: white;
-  border: 1px solid #111;
-  padding: 5px 12px;
-  font-weight: bold;
+  /* Sets the button color and text */
+  background-color: #e56e39; 
+  color: #000000;
+    
+  /* Font and padding to size the button */
+  font-size: 14px;
+  font-weight: 900;
+  padding: 4px 12px; 
+  margin: 0;
+  margin-right: 15px;
+  height: 100%;
+
+  /* Removes default browser button styling */
+  border: 3px solid #000000;
+  outline: none;
   cursor: pointer;
+
+  /* THE NEOBRUTALISM SHADOW */
+  box-shadow: 4px 4px 0px #000000;
+  transition: all 0.1s ease;
+}
+
+.start-button button:hover {
+    background-color: #3e5085; 
+}
+
+/* The "Press" Effect (Shifts into the shadow) */
+.start-button button:active {
+    box-shadow: 0px 0px 0px #000000; /* Shadow disappears */
+    transform: translate(4px, 4px); /* Element moves down/right */
 }
 
 /* System Tray */
+
 .system-tray {
+  /* Visual styling */
+  /* Base color for the time/language display */
+
+  background-color: #3e5085;
+  color: #000000; /* White text for time/lang */
+  font-size: 14px;
+  font-weight: 900;
+  
+  padding: 4px 4px 4px 4px;
+    
   display: flex;
   align-items: center;
-  gap: 15px;
+
+  /* Neobrutalism: Thick black border */
+  border: 3px solid #000000; 
+  box-shadow: 4px 4px 0px #000000;
+    
+
 }
 
-.system-tray .lang {
-  background: #444;
-  padding: 2px 5px;
-  border: 1px solid #222;
+.system-tray span {
+    /* Spacing between EN and the Time */
+    margin: 0 5px; 
 }
 
 /* === CONTENT VISIBILITY === */
@@ -243,28 +299,80 @@ body {
 }
 
 /* === TASKBAR BUTTONS === */
+
 .task-buttons {
-  display: flex;
-  gap: 5px;
-  flex: 1;
-  justify-content: flex-start;
-  margin: 0 10px;
+    display: flex;
+    gap: 8px; 
+    /*flex: 1;*/
+    justify-content: flex-start;
+
+    padding-left: 12px; 
+    
+    /* DIVIDER */
+    border-left: 3px solid #000000; 
+
+    margin: 0; 
+    margin-right: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+
+    align-items: flex-end; /* Keeps tabs anchored to the bottom */
+    height: 100%; 
 }
 
 .task-button {
-  background: #444;
-  border: 1px solid #222;
-  color: white;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 13px;
+
+    /*Base Blue for inactive tabs */
+    background-color: #3e5085; 
+    color: #8da4eb; 
+    
+    /* Text and Sizing */
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 780;
+    text-transform: lowercase;
+    
+    /* Neobrutalist Borders: Flat, simple border */
+    border: 3px solid #000000;
+    border-bottom: none; 
+
+    margin-bottom: -3px; 
+
+    /* Height: Slightly less than 100% so flex-end can work */
+    height: 85%;
+
+    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out, margin-bottom 0.2s ease-out;
+}
+
+.task-button:hover:not(.active) {
+    background-color: #485f95; /* Slightly lighter blue on hover */
 }
 
 .task-button.active {
-  background: #666;
-  border: 1px solid #333;
+    /* Accent Color: Bold Orange for maximum visibility */
+    background-color: #ce4c26; 
+    color: #000000; 
+    border: 3px solid #000000; 
+    border-bottom: none;
+    
+    /* NEOBRUTALISM SHADOW: Only the active tab uses the prominent shadow */
+    box-shadow: 2px 2px 0px #000000; 
+
+    margin-bottom: -3px; 
+    
+    /* Slightly taller active tab */
+    height: 95%;
+    
+    transform: none;
+}
+
+.task-button.active:active {
+    box-shadow: 0px 0px 0px #000000; 
+    transform: translate(2px, 2px); /* Snappy click feedback */
 }
 
 .hidden {
-  display: none !important;
+    display: none !important;
 }
