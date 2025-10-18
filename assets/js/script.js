@@ -23,6 +23,14 @@ function openWindow(id) {
   if (win) win.classList.remove("hidden");
 }
 
+// Helper function to find the desktop icon link associated with a window ID
+function getIconLink(windowId) { 
+    
+    const iconHref = `#${windowId}`; 
+    return document.querySelector(`.desktop a[href="${iconHref}"]`);
+}
+
+
 // Close window
 function closeWindow(btn) {
   const win = btn.closest(".window");
@@ -32,6 +40,12 @@ function closeWindow(btn) {
   const id = win.dataset.id;
   const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
   if (taskBtn) taskBtn.remove();
+
+
+  const iconLink = getIconLink(id);
+    if (iconLink) {
+        iconLink.classList.remove("active");
+    }
 
   win.remove();
 }
@@ -187,6 +201,7 @@ function createWindow(id, title) {
 
   // Add window to page
   document.body.appendChild(newWin);
+  
 
   // Create taskbar button
   const taskBtn = document.createElement("button");
@@ -210,11 +225,16 @@ function createWindow(id, title) {
   // Add close button functionality (so taskbar button also clears)
   const closeBtn = newWin.querySelector(".window-controls button:last-child");
   if (closeBtn) {
+    // Now calls the main closeWindow function which handles both the icon and taskbar cleanup
     closeBtn.addEventListener("click", () => {
-      newWin.remove();
-      taskBtn.remove();
+        closeWindow(closeBtn); 
     });
-  }
+}
+
+  const iconLink = getIconLink(id);
+    if (iconLink) {
+        iconLink.classList.add("active"); 
+    }
 
   bringToFront(newWin);
 }
@@ -231,3 +251,8 @@ window.addEventListener("DOMContentLoaded", () => {
   // Open the default Welcome window using the same template logic
   createWindow("welcome", "Welcome");
 });
+
+
+
+
+
