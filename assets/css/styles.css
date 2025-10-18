@@ -47,15 +47,15 @@ body {
   display: flex;
   flex-direction: column;
 
-  cursor: url('assets/cursors/arrow.cur'), default;
+  cursor: url('assets/cursors/arrow.png') 0 0, default;
 }
 
 a, button, .task-button, .window-controls button {
-    cursor: url('assets/cursors/Cursor_15.cur'), pointer;
+    cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
 }
 
 .window-header {
-    cursor: url('assets/cursors/Cursor_10.cur'), move; 
+    cursor: url('assets/cursors/Cursor_10.png')16 16, move; 
 }
 .window-header:active {
     cursor: grabbing; 
@@ -272,7 +272,7 @@ a, button, .task-button, .window-controls button {
   overflow: hidden; /* Hide scrollbars on the window container itself */
   z-index: 100;
 
-  cursor: url('assets/cursors/Cursor_6.cur'), default;
+  cursor: url('assets/cursors/Cursor_6.png'), default;
 }
 
 /* Header Bar */
@@ -287,7 +287,7 @@ a, button, .task-button, .window-controls button {
   justify-content: space-between;
   align-items: center;
   font-weight: 900;
-  cursor: grab; 
+  cursor: url('assets/cursors/Cursor_10.png')16 16, move; 
   user-select: none;
 
   border-bottom: 3px solid #000000;
@@ -316,7 +316,7 @@ a, button, .task-button, .window-controls button {
   /* Neobrutalism Button Look */
   border: 2px solid #000000;
   box-shadow: 2px 2px 0px #000000;
-  cursor: url('assets/cursors/Cursor_15.cur'), pointer;
+  cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
     
   transition: all 0.1s ease;
 
@@ -391,7 +391,7 @@ a, button, .task-button, .window-controls button {
   background: transparent;
   border: none;
   margin-right: 15px; 
-  cursor: pointer;
+  cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
   font-size: 14px;
   font-weight: bold;
   color: #000000;
@@ -430,7 +430,7 @@ a, button, .task-button, .window-controls button {
   border: 2px solid #000000;
   background: #ce4c26; 
   color: #000000;
-  cursor: pointer;
+  cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
   box-shadow: 2px 2px 0px #000000;
 }
 
@@ -497,7 +497,7 @@ a, button, .task-button, .window-controls button {
   /* Removes default browser button styling */
   border: 3px solid #000000;
   outline: none;
-  cursor: pointer;
+  cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
 
   /* THE NEOBRUTALISM SHADOW */
   box-shadow: 4px 4px 0px #000000;
@@ -601,7 +601,7 @@ a, button, .task-button, .window-controls button {
     
     /* Text and Sizing */
     padding: 5px 10px;
-    cursor: pointer;
+    cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
     font-size: 14px;
     font-weight: 780;
     text-transform: lowercase;
