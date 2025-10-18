@@ -83,8 +83,10 @@ function maximizeWindow(btn) {
     Object.assign(win.style, {
       top: "0",
       left: "0",
-      width: "100%",
-      height: "100%",
+      width: "100.1vw",
+      height: "calc(100vh - 50px)",
+
+      transform: "none",
     });
     win.classList.add("maximized");
   } else {
