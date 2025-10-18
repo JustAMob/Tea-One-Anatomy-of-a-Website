@@ -18,22 +18,40 @@
         <li><a href="#cssFolder"><img src="assets/images/Folder_Icon.png" alt="CSS" class="icon solid fa-folder"><span>CSS</span></a></li>
         <li><a href="#javascriptFolder"><img src="assets/images/Folder_Icon.png" alt="JavaScript" class="icon solid fa-folder"><span>JavaScript</span></a></li>
         <li><a href="#aboutFolder"><img src="assets/images/Folder_Icon.png" alt="About" class="icon solid fa-folder"><span>About</span></a></li>
+
+
         <li><a href="#recylcleBin"><img src="assets/images/Recycling_Bin_Icon.png" alt="Recycling Bin" class="icon solid fa-folder"><span>Recycle Bin</span></a></li>
         <li><a href="#myComputer"><img src="assets/images/My_Computer_Icon.png" alt="My Computer" class="icon solid fa-folder"><span>My Computer</span></a></li> 
+
         </ul>
     </nav>
+
+    
     <main>
 
                 <!-- Hidden reusable window template -->
         <div id="windowTemplate" class="window hidden">
         <div class="window-header" onmousedown="dragStart(event, this.parentElement)">
             <span class="window-title">Window Title - Microsoft Internet Explorer</span>
+
             <div class="window-controls">
-            <button onclick="minimizeWindow(this)">_</button>
-            <button onclick="maximizeWindow(this)">□</button>
-            <button onclick="closeWindow(this)">X</button>
+            <button onclick="minimizeWindow(this)">
+                
+            <img src="assets/icons/Retro-Minimize.png" alt="Minimize Icon">
+            </button>
+    
+            <button class="maximize-restore-toggle" onclick="maximizeWindow(this)">
+            <img src="assets/icons/Retro-Maximize.png" alt="Maximize Icon" class="maximize-icon">
+            <img src="assets/icons/Retro-Restore.png" alt="Restore Icon" class="restore-icon hidden"> 
+            </button>
+    
+            <button onclick="closeWindow(this)">
+            <img src="assets/icons/Retro-Close.png" alt="Close Icon">
+            </button>
+
             </div>
         </div>
+
         <div class="window-menu">
             <button>File</button>
             <button>Edit</button>
@@ -47,6 +65,13 @@
             <p>Default content here.</p>
         </div>
         </div>
+
+
+                      
+
+
+
+
         <section id="content-library" class="hidden">
             
          <!-- Default (Welcome) -->

@@ -38,7 +38,7 @@ ul, ol {
 /* === BASE === */
 body {
   font-family: "Courier New", monospace;
-  background: url('../images/Kahel-Na-Maayos-Talaga.png') no-repeat center center fixed;
+  background: url('../images/Kahel-Na-Maayos-Na-Talaga.png') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
 
@@ -100,7 +100,7 @@ body {
 .desktop ul li:nth-last-child(2) {
 
   position: absolute;
-  bottom: 95px;
+  bottom: 100px;
   margin: 0;
   z-index: 5;
 
@@ -155,93 +155,181 @@ body {
 
 
 /* === WINDOWS === */
+
 .window {
+  
+  /* Positioning & Sizing */
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 600px;
-  background: white;
-  border: 2px solid #000080;
-  font-family: "Courier New", monospace;
+  width: 700px; 
+  max-width: 90vw;
+  height: 500px; 
+
+  transform: translate(-50%, -50%) translateY(-25px);
+  
+  background-color: #FFFFFF; 
+  border: 3px solid #000000; 
+  box-shadow: 8px 8px 0px #000000;
+    
+  font-family: "Arial", sans-serif;
   font-size: 14px;
+    
   display: flex;
   flex-direction: column;
-  transform: translate(-50%, -50%);
+
   resize: both;
-  overflow: auto;
-  box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+  overflow: hidden; /* Hide scrollbars on the window container itself */
+  z-index: 100;
 }
 
 /* Header Bar */
 .window-header {
-  background: #000080;
-  color: white;
-  padding: 3px 6px;
+
+  background-color: #e56e39;
+  color: #000000;
+
+  padding: 8px 10px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: bold;
-  cursor: move;
+  font-weight: 900;
+  cursor: grab; 
   user-select: none;
+
+  border-bottom: 3px solid #000000;
+}
+
+.window.inactive .window-header {
+  background-color: #3e5085; 
+  color: #FFFFFF;
+}
+
+.window-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.window-controls button { 
+  
+  background-color: #ce4c26; 
+  
+  line-height: 1;
+  width: 25px;
+  height: 25px;
+  
+  padding: 0 !important;
+    
+  /* Neobrutalism Button Look */
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+  cursor: pointer;
+    
+  transition: all 0.1s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.window-controls button:active {
+    /* The "Press" Effect */
+    box-shadow: 0px 0px 0px #000000;
+    transform: translate(2px, 2px);
+}
+
+.window-controls button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto; 
+}
+
+.window-controls .restore-icon {
+  display: none;
+}
+
+.window.maximized .maximize-icon {
+  display: none;
+}
+
+.window.maximized .restore-icon {
+  display: block !important; 
 }
 
 /* Menu Bar */
 .window-menu {
-  background: #ececec;
-  border-bottom: 1px solid #ccc;
-  padding: 2px 5px;
+  background: #FFFFFF;
+  border-bottom: 3px solid #000000; 
+  padding: 5px 10px;
 }
 
 .window-menu button {
   background: transparent;
   border: none;
-  margin-right: 10px;
+  margin-right: 15px; 
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000000;
 }
 
 /* Address Bar */
 .window-address {
   display: flex;
   align-items: center;
-  padding: 3px;
-  background: #f0f0f0;
-  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+  background: #f0f0f0; 
+  /* High-contrast separator */
+  border-bottom: 3px solid #000000;
 }
 
 .window-address label {
-  margin-right: 5px;
+  margin-right: 10px;
+  color: #000000;
+  font-weight: bold;
 }
 
 .window-address input {
   flex: 1;
-  padding: 2px;
-  border: 1px solid #aaa;
+  padding: 4px;
+
+  /* Neobrutalist Input: Black border on white background */
+  border: 2px solid #000000; 
+  background-color: #FFFFFF;
 }
 
 .window-address button {
-  margin-left: 5px;
-  padding: 2px 8px;
-  border: 1px solid #888;
-  background: #e0e0e0;
+  margin-left: 10px;
+  padding: 4px 10px;
+
+  /* Neobrutalist Button Look */
+  border: 2px solid #000000;
+  background: #ce4c26; 
+  color: #000000;
   cursor: pointer;
+  box-shadow: 2px 2px 0px #000000;
 }
 
 /* Body */
 .window-body {
-  padding: 10px;
+  padding: 15px;
   flex: 1;
   overflow-y: auto;
-  text-align: center;
+  text-align: left;
+  color: #000000;
 }
 
 /* Status Bar */
 .window-status {
-  background: #ececec;
-  border-top: 1px solid #ccc;
-  padding: 2px 5px;
+  background: #FFFFFF;
+  
+  border-top: 3px solid #000000; 
+  padding: 5px 10px;
   font-size: 12px;
-  color: #333;
+  color: #000000;
+  font-weight: bold;
 }
 
 
@@ -409,11 +497,11 @@ body {
 }
 
 .task-button:hover:not(.active) {
-    background-color: #485f95; /* Slightly lighter blue on hover */
+    background-color: #485f95; 
 }
 
 .task-button.active {
-    /* Accent Color: Bold Orange for maximum visibility */
+   
     background-color: #ce4c26; 
     color: #000000; 
     border: 3px solid #000000; 
