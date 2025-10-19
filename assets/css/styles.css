@@ -552,7 +552,7 @@ a, button, .task-button, .window-controls button {
   /* Base color for the time/language display */
 
   background-color: #3e5085;
-  color: #000000; /* White text for time/lang */
+  color: #edebeb; /* White text for time/lang */
   font-size: 14px;
   font-weight: 900;
   
