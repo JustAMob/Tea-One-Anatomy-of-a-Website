@@ -8,45 +8,118 @@
     <link rel="stylesheet" href="assets/css/styles.css">   
     <title>Home Page</title>
 </head>
+
+
 <body>
     <nav class="desktop">
         <ul>
        
-        <li><a href="#welcome"><img src="assets/images/Folder_Icon.png" alt="Welcome" class="icon solid fa-folder"><span>Welcome</span></a></li>
-        <li><a href="#whatawebsiteFolder"><img src="assets/images/Folder_Icon.png" alt="What's a Website?" class="icon solid fa-folder"><span>What's a Website</span></a></li>
-        <li><a href="#htmlFolder"><img src="assets/images/Folder_Icon.png" alt="HTML" class="icon solid fa-folder"><span>HTML</span></a></li>
-        <li><a href="#cssFolder"><img src="assets/images/Folder_Icon.png" alt="CSS" class="icon solid fa-folder"><span>CSS</span></a></li>
-        <li><a href="#javascriptFolder"><img src="assets/images/Folder_Icon.png" alt="JavaScript" class="icon solid fa-folder"><span>JavaScript</span></a></li>
-        <li><a href="#aboutFolder"><img src="assets/images/Folder_Icon.png" alt="About" class="icon solid fa-folder"><span>About</span></a></li>
-        <li><a href="#recylcleBin"><img src="assets/images/Recycling_Bin_Icon.png" alt="Recycling Bin" class="icon solid fa-folder"><span>Recycle Bin</span></a></li>
-        <li><a href="#myComputer"><img src="assets/images/My_Computer_Icon.png" alt="My Computer" class="icon solid fa-folder"><span>My Computer</span></a></li> 
+        <li><a href="#welcome" class="desktop-icon-link">
+            <img src="assets/images/Retro-CloseFolder.png" alt="Welcome Closed" class="closed-icon">
+            <img src="assets/images/Retro-OpenFolder.png" alt="Welcome Open" class="open-icon">
+        <span>Welcome</span>
+        </a></li>
+
+
+        <li><a href="#whatsawebsiteFolder" class="desktop-icon-link">
+            <img src="assets/images/Retro-CloseFolder-Blue.png" alt="What's a Website? Closed" class="closed-icon">
+            <img src="assets/images/Retro-OpenFolder-Blue.png" alt="What's a Website? Open" class="open-icon">
+            <span>What's a Website</span>
+        </a></li>
+
+
+        <li><a href="#htmlFolder" class="desktop-icon-link">
+            <img src="assets/images/Retro-CloseFolder-Purple.png" alt="HTML Closed" class="closed-icon">
+            <img src="assets/images/Retro-OpenFolder-Purple.png" alt="HTML Open" class="open-icon">
+            <span>HTML</span>
+        </a></li>
+
+
+        <li><a href="#cssFolder" class="desktop-icon-link">
+            <img src="assets/images/Retro-CloseFolder.png" alt="CSS Closed" class="closed-icon">
+            <img src="assets/images/Retro-OpenFolder.png" alt="CSS Open" class="open-icon">
+            <span>CSS</span>
+        </a></li>
+
+
+        <li><a href="#javascriptFolder" class="desktop-icon-link">
+            <img src="assets/images/Retro-CloseFolder-Blue.png" alt="JavaScript Closed" class="closed-icon">
+            <img src="assets/images/Retro-OpenFolder-Blue.png" alt="JavaScript Open" class="open-icon">
+            <span>Java Script</span>
+        </a></li>
+
+
+        <li><a href="#aboutFolder" class="desktop-icon-link">
+            <img src="assets/images/Retro-CloseFolder-Purple.png" alt="About Closed" class="closed-icon">
+            <img src="assets/images/Retro-OpenFolder-Purple.png" alt="About Open" class="open-icon">
+            <span>About</span>
+        </a></li>
+
+
+
+
+        <li><a href="#recycleBin" class="desktop-icon-link">
+            <img src="assets/images/Retro-RecycleBin.png" alt="Recycling Bin" class="icon solid fa-folder">
+            <span>Recycle Bin</span>
+        </a></li>
+
+
+        <li><a href="#myComputer" class="desktop-icon-link">
+            <img src="assets/images/Retro-ClosePuter.png" alt="My Computer Closed" class="closed-icon">
+            <img src="assets/images/Retro-OpenPuter.png" alt="My Computer Open" class="open-icon">
+            <span>My Machine</span>
+        </a></li> 
+
         </ul>
     </nav>
+
+    
     <main>
 
                 <!-- Hidden reusable window template -->
         <div id="windowTemplate" class="window hidden">
         <div class="window-header" onmousedown="dragStart(event, this.parentElement)">
             <span class="window-title">Window Title - Microsoft Internet Explorer</span>
+
             <div class="window-controls">
-            <button onclick="minimizeWindow(this)">_</button>
-            <button onclick="maximizeWindow(this)">□</button>
-            <button onclick="closeWindow(this)">X</button>
+            <button onclick="minimizeWindow(this)">
+
+            <img src="assets/images/Retro-Minimize.png" alt="Minimize Icon">
+            </button>
+    
+            <button class="maximize-restore-toggle" onclick="maximizeWindow(this)">
+            <img src="assets/images/Retro-Maximize.png" alt="Maximize Icon" class="maximize-icon">
+            <img src="assets/images/Retro-Restore.png" alt="Restore Icon" class="restore-icon hidden"> 
+            </button>
+    
+            <button onclick="closeWindow(this)">
+            <img src="assets/images/Retro-Close.png" alt="Close Icon">
+            </button>
+
             </div>
         </div>
+
         <div class="window-menu">
-            <button>File</button>
-            <button>Edit</button>
-            <button>View</button>
-            <button>Favorites</button>
-            <button>Tools</button>
-            <button>Help</button>
+            <a href="https://en.wikipedia.org/wiki/Computer_file" target="_blank">File</a>
+            <a href="https://en.wikipedia.org/wiki/Editing" target="_blank">Edit</a>
+            <a href="https://en.wikipedia.org/wiki/Pageview" target="_blank">View</a>
+            <a href="https://www.merriam-webster.com/dictionary/favorite" target="_blank">Favorites</a>
+            <a href="https://en.wikipedia.org/wiki/Tool" target="_blank"n>Tools</a>
+            <a href="https://en.wikipedia.org/wiki/Help_(command)" target="_blank"n>Help</a>
         </div>
         <div class="window-body">
             <h1>Window Title</h1>
             <p>Default content here.</p>
         </div>
+        
         </div>
+
+
+                      
+
+
+
+
         <section id="content-library" class="hidden">
             
          <!-- Default (Welcome) -->
@@ -91,15 +164,43 @@
             <!-- Fun Extra: My Dog -->
             <div id="aboutFolder" class="content-block">
                 <h1>Tea One</h1>
-                <p>This website is made by Cruz, Encillo, Igdanes, Lu, and Samaniego </p>
+                <p>This website was made by J.C.Cruz, C.J.Encillo, Q.Igdanes, K.I.Lu, and M.Y.Samaniego as a Web Systems and Technology project.</p>
+                <br>
+                <h3>Assets</h3>
+                <p>Icons - Handdrawn by Samaniego.</p>
+                <p>Font - Dogica by Roberto Mocci.</p>
+                <p>Cursor - Windows 95 - 98 Cursor by Microsoft.</p>
             </div>
+
+
+            <div id="myComputer" class="content-block">
+                <h1>Fun Stuff</h1>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum tempore nisi, aspernatur corporis id quisquam, eligendi incidunt qui atque vero asperiores blanditiis enim expedita sit et numquam odio aperiam quidem.</p>
+                <br>
+                <h3>Inspirations</h3>
+                <br>
+                <p><b>Windows 1.0 85, Windows 95, Windows XP</b></p>
+                <p>Initially, we were going for a very Retro theme... but we saw the mock-up and it <i>did not</i> look too appealing. Everything was much too grey. The team then decided on a combined approach, blending a clean-ish modern style with the blocky, fun, and loud retro aesthetic (much to the designer's delight— hey, that's me!) that breaks the 2020s trend of copy-paste, ultra-clean modern designs (not that it's bad but...).</p>
+                <br>
+                <p><b>Neubrutalism</b></p>
+                <p>Also known as <b>Neobrutalism or Neo Memphis</b>, this is a design aesthetic that originated in the late 2010s that focuses on breaking the traditional conventions of design by using unconventional visual elements, such as contrasting color palettes and grotesque typefaces.</p>
+                <br>
+                <p>Coined by Lin Duncan, Neubrutalism's namesake originates from the architectural movement Brutalism, which utilized unpainted concrete and geometric designs, favoring functionality over conventional aesthetic standards; Brutalism was minimalist, utilitarian, monochrome in nature.</p>
+                <br>
+                <p>Although Brutalism and Neubrutalism are very different visually, they both share the core value of breaking the conventions of design and create visuals in their most basic shapes and forms.</p>
+            </div>
+
+
+
         </section>
     </main>
+
+
     <footer class="taskbar">
         
          <!-- Start button -->
         <div class="start-button">
-            <button>end</button>
+            <button>‎end‎</button>
         </div>
 
         <div id="task-buttons" class="task-buttons"></div>
@@ -107,8 +208,13 @@
         <!-- System tray -->
         <div class="system-tray">
             <span class="lang">EN</span>
+            <span> | </span>
+            <span id="currentDate"></span>
+            <span> | </span>
             <span id="currentTime"></span>
         </div>
+
+
 
     </footer>
     

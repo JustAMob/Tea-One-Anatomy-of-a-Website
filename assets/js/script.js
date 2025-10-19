@@ -1,7 +1,31 @@
 // === CLOCK FUNCTION ===
 function updateTime() {
-  document.getElementById('currentTime').textContent = new Date().toLocaleTimeString();
+    const now = new Date();
+
+    // 1. Time options 
+    const timeOptions = {
+        hour: 'numeric', 
+        minute: '2-digit', 
+        hour12: true
+    };
+    const currentTimeString = now.toLocaleTimeString('en-US', timeOptions);
+
+    // 2. Date options 
+    const dateOptions = {
+        month: '2-digit', // e.g., 10
+        day: '2-digit',   // e.g., 19
+        year: 'numeric'   // e.g., 2025
+    };
+    const currentDateString = now.toLocaleDateString('en-US', dateOptions);
+
+    // 3. Update the HTML elements )
+    const timeElement = document.getElementById('currentTime');
+    const dateElement = document.getElementById('currentDate');
+
+    if (timeElement) timeElement.textContent = currentTimeString;
+    if (dateElement) dateElement.textContent = currentDateString;
 }
+
 setInterval(updateTime, 1000);
 updateTime();
 
@@ -14,15 +38,37 @@ function openWindow(id) {
   if (win) win.classList.remove("hidden");
 }
 
+// Helper function to find the desktop icon link associated with a window ID
+function getIconLink(windowId) { 
+    
+    const iconHref = `#${windowId}`; 
+    return document.querySelector(`.desktop a[href="${iconHref}"]`);
+}
+
+
 // Close window
 function closeWindow(btn) {
   const win = btn.closest(".window");
   if (!win) return;
 
+  // 1. Start the fade-out animation
+    win.style.opacity = '0';
+    
+    // 2. Wait for the fade (150ms) before removing the element
+    setTimeout(() => {
+        win.remove(); 
+    }, 150);
+
   // remove from taskbar
   const id = win.dataset.id;
   const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
   if (taskBtn) taskBtn.remove();
+
+
+  const iconLink = getIconLink(id);
+    if (iconLink) {
+        iconLink.classList.remove("active");
+    }
 
   win.remove();
 }
@@ -31,6 +77,18 @@ function closeWindow(btn) {
 function minimizeWindow(btn) {
   const win = btn.closest(".window");
   if (!win) return;
+  
+
+  // 1. Start the fade-out animation instantly
+    win.style.opacity = '0';
+    
+  // 2. Wait for the fade (150ms) before hiding display
+    setTimeout(() => {
+        win.style.display = 'none';
+        
+  // IMPORTANT: Reset opacity back to 1 for when it's restored,,,
+        win.style.opacity = '1'; 
+    }, 150);
 
   // Hide the entire window
   win.style.display = "none";
@@ -60,8 +118,10 @@ function maximizeWindow(btn) {
     Object.assign(win.style, {
       top: "0",
       left: "0",
-      width: "100%",
-      height: "100%",
+      width: "100.1vw",
+      height: "calc(100vh - 50px)",
+
+      transform: "none",
     });
     win.classList.add("maximized");
   } else {
@@ -178,6 +238,7 @@ function createWindow(id, title) {
 
   // Add window to page
   document.body.appendChild(newWin);
+  
 
   // Create taskbar button
   const taskBtn = document.createElement("button");
@@ -189,9 +250,11 @@ function createWindow(id, title) {
   // Clicking taskbar button toggles visibility
   taskBtn.addEventListener("click", () => {
     if (newWin.style.display === "none") {
+      
       newWin.style.display = "flex";
       bringToFront(newWin);
       taskBtn.classList.add("active");
+
     } else {
       newWin.style.display = "none";
       taskBtn.classList.remove("active");
@@ -201,11 +264,16 @@ function createWindow(id, title) {
   // Add close button functionality (so taskbar button also clears)
   const closeBtn = newWin.querySelector(".window-controls button:last-child");
   if (closeBtn) {
+    // Now calls the main closeWindow function which handles both the icon and taskbar cleanup
     closeBtn.addEventListener("click", () => {
-      newWin.remove();
-      taskBtn.remove();
+        closeWindow(closeBtn); 
     });
-  }
+}
+
+  const iconLink = getIconLink(id);
+    if (iconLink) {
+        iconLink.classList.add("active"); 
+    }
 
   bringToFront(newWin);
 }
@@ -222,3 +290,8 @@ window.addEventListener("DOMContentLoaded", () => {
   // Open the default Welcome window using the same template logic
   createWindow("welcome", "Welcome");
 });
+
+
+
+
+
