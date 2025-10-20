@@ -69,67 +69,89 @@ function closeWindow(btn) {
     if (iconLink) {
         iconLink.classList.remove("active");
     }
-
-  win.remove();
 }
 
 // Minimize (toggle visibility of window body)
 function minimizeWindow(btn) {
-  const win = btn.closest(".window");
-  if (!win) return;
-  
+    const win = btn.closest(".window") || btn; 
+    if (!win || !win.classList || !win.style || win.dataset.id === undefined) return; 
 
-  // 1. Start the fade-out animation instantly
+    //  Start the animation process
+    win.classList.add('animated'); 
     win.style.opacity = '0';
     
-  // 2. Wait for the fade (150ms) before hiding display
+    // Wait for the fade (150ms) before hiding display
     setTimeout(() => {
         win.style.display = 'none';
         
-  // IMPORTANT: Reset opacity back to 1 for when it's restored,,,
+        // Cleanup and reset for restore
         win.style.opacity = '1'; 
+        win.classList.remove('animated'); 
     }, 150);
-
-  // Hide the entire window
-  win.style.display = "none";
-
-  // Deactivate the taskbar button
-  const id = win.dataset.id;
-  const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
-  if (taskBtn) {
-    taskBtn.classList.remove("active");
-  }
+    
+    // Deactivate the taskbar button immediately
+    const id = win.dataset.id;
+    const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
+    if (taskBtn) {
+        taskBtn.classList.remove("active");
+    }
 }
+
+
 
 // Maximize (toggle fullscreen-like mode)
 function maximizeWindow(btn) {
-  const win = btn.closest(".window");
-  if (!win) return;
+    const win = btn.closest(".window");
+    if (!win) return;
 
-  if (!win.classList.contains("maximized")) {
-    // Save previous position and size
-    win.dataset.oldPos = JSON.stringify({
-      top: win.style.top,
-      left: win.style.left,
-      width: win.style.width,
-      height: win.style.height,
-    });
-    // Expand to full screen
-    Object.assign(win.style, {
-      top: "0",
-      left: "0",
-      width: "100.1vw",
-      height: "calc(100vh - 50px)",
+    if (!win.classList.contains("maximized")) {
+        // --- MAXIMIZE LOGIC ---
+        
+        // 1. Save previous position/size
+        win.dataset.oldPos = JSON.stringify({
+            top: win.style.top,
+            left: win.style.left,
+            width: win.style.width,
+            height: win.style.height,
+            transform: win.style.transform || 'translate(-50%, -50%)', 
+        });
+        
+        // 2. Add the animation class BEFORE changing styles
+        win.classList.add("animated");
+        
+        // 3. Add the maximized class (applies the full-screen CSS)
+        win.classList.add("maximized");
 
-      transform: "none",
-    });
-    win.classList.add("maximized");
-  } else {
-    // Restore old position and size
-    const old = JSON.parse(win.dataset.oldPos);
-    Object.assign(win.style, old);
-    win.classList.remove("maximized");
-  }
+        // 4. Remove inline positioning to let the CSS class take over
+        win.style.top = '';
+        win.style.left = '';
+        win.style.width = '';
+        win.style.height = '';
+        win.style.transform = '';
+
+        // 5. Remove the animation class after the transition finishes
+        setTimeout(() => {
+            win.classList.remove("animated");
+        }, 300); // 300ms matches the CSS transition duration
+
+    } else {
+        // --- RESTORE LOGIC ---
+        
+        // 1. Add the animation class BEFORE restoring styles
+        win.classList.add("animated");
+
+        // 2. Restore old position and size
+        win.classList.remove("maximized");
+        if (win.dataset.oldPos) {
+            const old = JSON.parse(win.dataset.oldPos);
+            Object.assign(win.style, old); 
+        }
+
+        // 3. Remove the animation class after the transition finishes
+        setTimeout(() => {
+            win.classList.remove("animated");
+        }, 300); // 300ms matches the CSS transition duration
+    }
 }
 
 // === DRAG FUNCTIONALITY ===
@@ -194,8 +216,10 @@ document.querySelectorAll(".desktop a").forEach(folder => {
 
 // Create a new window from the template
 function createWindow(id, title) {
+
   // Check if the window is already open
   let existingWindow = document.querySelector(`.window[data-id="${id}"]`);
+
   if (existingWindow) {
     // If it's hidden, show it again
     if (existingWindow.style.display === "none") {
@@ -219,6 +243,19 @@ function createWindow(id, title) {
   newWin.id = `${id}-window`;
   newWin.dataset.id = id;
 
+
+  // --- NEW FADE-IN LOGIC START ---
+
+  // 1. Prepare for transition / add class
+  newWin.classList.add("animated");
+    
+  // 2. Start state: Set opacity to 0
+  newWin.style.opacity = '0'; 
+
+  // 3. (Rest of setup)
+    
+
+
   // Update window title
   const titleSpan = newWin.querySelector(".window-title") || newWin.querySelector(".title");
   if (titleSpan) titleSpan.textContent = `${title} - Microsoft Internet Explorer`;
@@ -236,9 +273,21 @@ function createWindow(id, title) {
     body.innerHTML = content ? content.innerHTML : `<p>No content found for ${title}.</p>`;
   }
 
-  // Add window to page
+  // (4.) Add window to page
   document.body.appendChild(newWin);
-  
+    
+  // 5. Final state -- Set opacity to 1 immediately after adding to DOM
+
+  setTimeout(() => {
+        newWin.style.opacity = '1'; 
+        
+        // 6. Clean up, Remove the animated class after the fade is complete (150ms)
+       
+        setTimeout(() => {
+            newWin.classList.remove("animated");
+        }, 150);
+
+  }, 10);
 
   // Create taskbar button
   const taskBtn = document.createElement("button");
@@ -251,13 +300,30 @@ function createWindow(id, title) {
   taskBtn.addEventListener("click", () => {
     if (newWin.style.display === "none") {
       
-      newWin.style.display = "flex";
+      // --- FADE-IN LOGIC ---
+        
+        newWin.classList.add("animated");
+        newWin.style.display = "flex";
+        newWin.style.opacity = '0';
+        
+        setTimeout(() => {
+           
+            newWin.style.opacity = '1'; 
+            
+            setTimeout(() => {
+                newWin.classList.remove("animated");
+            }, 150);
+        }, 15
+      ); 
+        
+        // --- END FADE-IN LOGIC ---
+
+
       bringToFront(newWin);
       taskBtn.classList.add("active");
 
     } else {
-      newWin.style.display = "none";
-      taskBtn.classList.remove("active");
+      minimizeWindow(newWin);
     }
   });
 
@@ -291,7 +357,18 @@ window.addEventListener("DOMContentLoaded", () => {
   createWindow("welcome", "Welcome");
 });
 
+// === START BUTTON REFRESH LOGIC ===
+window.addEventListener("DOMContentLoaded", () => {
+    
+    const startButton = document.querySelector('.start-button button'); 
 
+    if (startButton) {
+        startButton.addEventListener('click', () => {
+            
+            window.location.reload(); 
+        });
+    }
+});
 
 
 
