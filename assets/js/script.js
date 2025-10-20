@@ -258,7 +258,7 @@ function createWindow(id, title) {
 
   // Update window title
   const titleSpan = newWin.querySelector(".window-title") || newWin.querySelector(".title");
-  if (titleSpan) titleSpan.textContent = `${title} - Microsoft Internet Explorer`;
+  if (titleSpan) titleSpan.textContent = `${title} - Brewser T1.0.0`;
 
   // Randomized positioning (so they don't overlap exactly)
   newWin.style.top = `${100 + Math.random() * 100}px`;
