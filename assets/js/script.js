@@ -73,28 +73,31 @@ function closeWindow(btn) {
 
 // Minimize (toggle visibility of window body)
 function minimizeWindow(btn) {
-  const win = btn.closest(".window");
-  if (!win) return;
-  
+    const win = btn.closest(".window") || btn; 
+    if (!win || !win.classList || !win.style || win.dataset.id === undefined) return; 
 
-  // 1. Start the fade-out animation instantly
+    //  Start the animation process
+    win.classList.add('animated'); 
     win.style.opacity = '0';
     
-  // 2. Wait for the fade (150ms) before hiding display
+    // Wait for the fade (150ms) before hiding display
     setTimeout(() => {
         win.style.display = 'none';
         
-  // IMPORTANT: Reset opacity back to 1 for when it's restored,,,
+        // Cleanup and reset for restore
         win.style.opacity = '1'; 
+        win.classList.remove('animated'); 
     }, 150);
-
-  // Deactivate the taskbar button
-  const id = win.dataset.id;
-  const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
-  if (taskBtn) {
-    taskBtn.classList.remove("active");
-  }
+    
+    // Deactivate the taskbar button immediately
+    const id = win.dataset.id;
+    const taskBtn = document.querySelector(`.task-button[data-id="${id}"]`);
+    if (taskBtn) {
+        taskBtn.classList.remove("active");
+    }
 }
+
+
 
 // Maximize (toggle fullscreen-like mode)
 function maximizeWindow(btn) {
@@ -310,7 +313,8 @@ function createWindow(id, title) {
             setTimeout(() => {
                 newWin.classList.remove("animated");
             }, 150);
-        }, 10); 
+        }, 15
+      ); 
         
         // --- END FADE-IN LOGIC ---
 
@@ -319,8 +323,7 @@ function createWindow(id, title) {
       taskBtn.classList.add("active");
 
     } else {
-      newWin.style.display = "none";
-      taskBtn.classList.remove("active");
+      minimizeWindow(newWin);
     }
   });
 
