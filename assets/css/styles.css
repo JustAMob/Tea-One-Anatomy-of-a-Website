@@ -269,7 +269,8 @@ a, button, .task-button, .window-controls button {
   height: 500px; 
 
   transform: translate(-50%, -50%);
-  transition: opacity 0.15s ease-out;
+  transition: 
+        opacity 0.15s ease-out;
   
   background-color: #FFFFFF; 
   border: 3px solid #000000; 
@@ -290,6 +291,19 @@ a, button, .task-button, .window-controls button {
   z-index: 100;
 
   cursor: url('assets/cursors/Cursor_6.png'), default;
+}
+
+
+.window.animated {
+    transition: 
+        opacity 0.15s ease-out,
+        
+      
+        width 0.3s ease-in-out,
+        height 0.3s ease-in-out,
+        top 0.3s ease-in-out,
+        left 0.3s ease-in-out,
+        transform 0.3s ease-in-out;
 }
 
 /* Header Bar */
