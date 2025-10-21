@@ -370,5 +370,25 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+function saveNotepadFile() {
+  const text = document.getElementById("notepadTextArea").value;
+  let fileName = prompt("Enter a file name:", "New Text Document");
+
+  if (fileName === null) return; // Cancel saving
+
+  if (!fileName.endsWith(".txt")) {
+    fileName += ".txt"; // Automatically add .txt
+  }
+
+  const blob = new Blob([text], { type: "text/plain" });
+  const downloadLink = document.createElement("a");
+  downloadLink.href = URL.createObjectURL(blob);
+  downloadLink.download = fileName;
+  downloadLink.click();
+}
+
+
+
+
 
 

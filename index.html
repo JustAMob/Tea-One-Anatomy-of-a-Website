@@ -70,6 +70,15 @@
             <span>My Machine</span>
         </a></li> 
 
+        <li>
+            <a href="#notepadApp" class="desktop-icon-link">
+            <img src="assets/images/ClosePad.png" alt="My Computer Closed" class="closed-icon">
+            <img src="assets/images/OpenPad.png" alt="My Computer Open" class="open-icon">
+            <span>Notepad</span>
+            </a>
+        </li>
+
+
         </ul>
     </nav>
 
@@ -159,6 +168,12 @@
                 <h1>JavaScript</h1>
                 <p>JavaScript makes the website <b>interactive</b>.</p>
                 <p>It handles clicks, forms, animations, and dynamic updates.</p>
+            </div>
+
+            <!-- Notepad App -->
+            <div id="notepadApp" class="content-block">
+            <textarea id="notepadTextArea" style="width:100%; height:400px; font-family:monospace;"></textarea>
+            <button onclick="saveNotepadFile()" style="margin-top:5px;">Save as .txt</button>
             </div>
 
             <!-- Fun Extra: My Dog -->
