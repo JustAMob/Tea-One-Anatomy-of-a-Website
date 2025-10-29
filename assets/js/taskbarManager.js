@@ -1,6 +1,4 @@
 
-// ===TASKBAR MODULE===
-
 const TaskbarManager = (() => {
   const taskbar = document.getElementById("task-buttons");
 

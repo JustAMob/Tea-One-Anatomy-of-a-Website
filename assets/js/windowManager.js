@@ -1,6 +1,4 @@
 
-// ===WINDOW MODULE===
-
 const WindowManager = (() => {
   let zCounter = 100;
   let currentWindow = null;
@@ -37,7 +35,7 @@ const WindowManager = (() => {
     const titleSpan = newWin.querySelector(".window-title");
     if (titleSpan) titleSpan.textContent = `${title} - Brewser T1.0.0`;
 
-    // ✅ Explicit placement controlled by JS
+    
     Object.assign(newWin.style, {
       position: "fixed",
       transform: "none",
@@ -54,7 +52,7 @@ const WindowManager = (() => {
 
     document.body.appendChild(newWin);
 
-    // ✅ Taskbar button via TaskbarManager
+    
     TaskbarManager.createButton(id, title, () => {
       if (newWin.style.display === "none") {
         newWin.style.display = "flex";
@@ -108,11 +106,11 @@ const WindowManager = (() => {
     }
   }
 
-  // === DRAGGING (with getBoundingClientRect) ===
+  // === DRAGGING ===
   function dragStart(e, win) {
     if (win.classList.contains("maximized")) return;
 
-    const rect = win.getBoundingClientRect(); // ✅ actual screen position
+    const rect = win.getBoundingClientRect(); 
     currentWindow = win;
     offsetX = e.clientX - rect.left;
     offsetY = e.clientY - rect.top;
