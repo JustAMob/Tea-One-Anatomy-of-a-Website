@@ -497,6 +497,37 @@ a, button, .task-button, .window-controls button {
   font-weight: bold;
 }
 
+/* Text styles  */
+.image-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.image-row img {
+  width: 150px;
+}
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.text-section {
+  flex: 0 0 30%;
+  padding: 20px;
+}
+
+.image-section {
+  flex: 0 0 70%;
+}
+
+.image-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
 
 /* === TASKBAR === */
 .taskbar {
