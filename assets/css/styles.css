@@ -509,24 +509,36 @@ a, button, .task-button, .window-controls button {
 .container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   max-width: 1000px;
   margin: auto;
-}
-
-.text-section {
-  flex: 0 0 30%;
-  padding: 20px;
-}
-
-.image-section {
-  flex: 0 0 70%;
+  gap: 20px; 
 }
 
 .image-section img {
   width: 100%;
   height: auto;
   border-radius: 10px;
+  display: block;
+  object-fit: cover;
+}
+
+/* Let image and text adjust dynamically */
+.image-section {
+  flex: 1 1 60%;
+}
+
+.text-section {
+  flex: 1 1 40%;
+  padding: 20px;
+}
+
+/* stack vertically on small screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
 }
 
 /* === TASKBAR === */
