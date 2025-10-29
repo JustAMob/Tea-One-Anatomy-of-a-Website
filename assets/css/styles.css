@@ -509,11 +509,22 @@ a, button, .task-button, .window-controls button {
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   max-width: 1000px;
   margin: auto;
   gap: 20px; 
+}
+
+/* Horizontal layout (default) */
+.container.horizontal {
+  flex-direction: row;
+}
+
+/* Vertical layout */
+.container.vertical {
+  flex-direction: column;
+  text-align: center;
 }
 
 .image-section img {
@@ -527,6 +538,11 @@ a, button, .task-button, .window-controls button {
 /* Let image and text adjust dynamically */
 .image-section {
   flex: 1 1 60%;
+}
+.image-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
 
 .text-section {
