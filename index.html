@@ -87,21 +87,21 @@
 
                 <!-- Hidden reusable window template -->
         <div id="windowTemplate" class="window hidden">
-        <div class="window-header" onmousedown="dragStart(event, this.parentElement)">
+        <div class="window-header" onmousedown="WindowManager.dragStart(event, this.parentElement)">
             <span class="window-title">Window Title - Brewser T1.0.0</span>
 
             <div class="window-controls">
-            <button onclick="minimizeWindow(this)">
+            <button onclick="WindowManager.minimize(this)">
 
             <img src="assets/images/Retro-Minimize.png" alt="Minimize Icon">
             </button>
     
-            <button class="maximize-restore-toggle" onclick="maximizeWindow(this)">
+            <button class="maximize-restore-toggle" onclick="WindowManager.maximize(this)">
             <img src="assets/images/Retro-Maximize.png" alt="Maximize Icon" class="maximize-icon">
             <img src="assets/images/Retro-Restore.png" alt="Restore Icon" class="restore-icon hidden"> 
             </button>
     
-            <button onclick="closeWindow(this)">
+            <button onclick="WindowManager.close(this)">
             <img src="assets/images/Retro-Close.png" alt="Close Icon">
             </button>
 
@@ -133,19 +133,17 @@
             
          <!-- Default (Welcome) -->
             <div id="welcome" class="content-block">
-                <h1>Welcome to Anatomy of a Website</h1>
-                <br>
+                <h1>What is a Website?</h1>
+                <p><em>This... is a website!</em></p>
+                <p>(not final look, will make this more modern and aesthetic + readable)</p>
                 <p>
-                    The objective of this web development project is to build an interactive static website
-                    that explains the core components of a modern web page, making HTML, CSS, and JavaScript
-                    more accessesible to beginners. Beyond serving as a learning tool, the project will showcase
-                    the team's understatanding of foundational web technologies through a GitHub-hosted site that
-                    demostrates skills in file management, client-side scripting, and responsive design.
+                this ‘folder’s’ window should be interactive (information will appear via
+                hover/click, it’s scrollable, it has a menu, like most websites: basically,
+                it’s the standard look of a basic website but all parts within it are moveable
+                and interactable.)
                 </p>
-                <br>
                 <p>
-                    This website will function not onluy as an educational resource but also as a unique protfolio
-                    piece highlighting both technical expertise and innovative user experience.
+                ... and behind all these are three essential technologies:
                 <b>HTML</b>, <b>CSS</b>, and <b>JavaScript</b>.  
                 Click on the other folders to learn more!
                 </p>
@@ -214,66 +212,16 @@
 
             <!-- HTML Content -->
             <div id="htmlFolder" class="content-block">
-                <h1>Hypertext Markup Language</h1>  
-                <div class="container image-left">
-                    <div class="image-section">
-                        <img src="image.jpg" alt="HTML sample code">
-                    </div>
-                    <div class="text-section">
-                        <p>
-                        <b>HTML (Hypertext Markup Language)</b> is basically the building blocks of a webpage
-                            It's like giving instructions to your computer on what should appear—such as titles,
-                            paragraphs, images, links, and more. Imagine it as the skeleton of a house. It doesn't
-                            make things coloful or stylish but it makes sure everything is in the right place so the
-                            website has structure and content. 
-                        </p>
-                    </div>
-                </div>   
-                <div class="container image-left">
-                    <div class="image-section">
-                        <img src="image.jpg" alt="HTML sample code">
-                    </div>
-                    <div class="text-section">
-                        <p>
-                        <b>HTML</b> is the standard markup language used to create documents on the World Wide Web.
-                        It allows authors to structure content such as text, images, videso , and hyperlinks in a
-                        way web browsers can interpret and display. HTML uses a system of tags and elements to define the
-                        various parts of a webpage, such as headings, paragraphs, lists, links, and multimedia
-                        </p>
-                    </div>
-                </div>
-                
+                <h1>HTML</h1>
+                <p>HTML stands for <b>Hypertext Markup Language</b>.</p>
+                <p>It is the structure of the website — headings, paragraphs, links, images, and more.</p>
             </div>
 
             <!-- CSS Content -->
             <div id="cssFolder" class="content-block">
-                <h1>Cascading Style Sheets</h1>
-                 <div class="container image-left">
-                    <div class="image-section">
-                        <img src="image.jpg" alt="HTML sample code">
-                    </div>
-                    <div class="text-section">
-                        <p>
-                        <b>Where websites find their style</b><br> 
-                        CSS [Cascading Style Sheets] is what makes a website look good. It controls the colors,
-                        fonts, layouts, and overall visual appearance. If HTML is the skeleton, CSS is the skin,
-                        clothes, and makeup that make the website attractive and user-friendly. It tells the browser 
-                        how each element should appear — whether it’s a big, bold heading, a pastel background, or 
-                        smooth button animation.
-                        </p>
-                    </div>
-                </div>
-                <h1>Anayomy of a CSS Rule</h1>
-                <div class="container vertical">
-                    <div class="image-section">
-                        <img src="assets/images/css-anatomy.png" alt="CSS sample code">
-                        <img src="assets/images/css-anatomy.png" alt="CSS sample code">
-                    </div>
-                    <div class="text-section">
-                        <p>
-                        This rule changes your heading colors and centers it on the page.
-                        </p>
-                    </div>
+                <h1>CSS</h1>
+                <p>CSS stands for <b>Cascading Style Sheets</b>.</p>
+                <p>It’s used to style the website — colors, fonts, layouts, animations, etc.</p>
             </div>
 
             <!-- JavaScript Content -->
@@ -349,6 +297,10 @@
     <!-- Bootstrap JS -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Your custom JS -->
+    <script src="assets/js/taskbarManager.js"></script>
+    <script src="assets/js/windowManager.js"></script>
+    <script src="assets/js/clock.js"></script>
+    <script src="assets/js/notepad.js"></script>
     <script src="assets/js/script.js"></script>
 
 </body>
