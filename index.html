@@ -87,21 +87,21 @@
 
                 <!-- Hidden reusable window template -->
         <div id="windowTemplate" class="window hidden">
-        <div class="window-header" onmousedown="dragStart(event, this.parentElement)">
+        <div class="window-header" onmousedown="WindowManager.dragStart(event, this.parentElement)">
             <span class="window-title">Window Title - Brewser T1.0.0</span>
 
             <div class="window-controls">
-            <button onclick="minimizeWindow(this)">
+            <button onclick="WindowManager.minimize(this)">
 
             <img src="assets/images/Retro-Minimize.png" alt="Minimize Icon">
             </button>
     
-            <button class="maximize-restore-toggle" onclick="maximizeWindow(this)">
+            <button class="maximize-restore-toggle" onclick="WindowManager.maximize(this)">
             <img src="assets/images/Retro-Maximize.png" alt="Maximize Icon" class="maximize-icon">
             <img src="assets/images/Retro-Restore.png" alt="Restore Icon" class="restore-icon hidden"> 
             </button>
     
-            <button onclick="closeWindow(this)">
+            <button onclick="WindowManager.close(this)">
             <img src="assets/images/Retro-Close.png" alt="Close Icon">
             </button>
 
@@ -266,19 +266,19 @@
                 <h1>Anayomy of a CSS Rule</h1>
                 <div class="container vertical">
                      <p>
-                        Here’s an example of how you can change the color of a heading and center it on the page using CSS:
-                    </p>
+                    Here’s an example of how you can change the color of a heading and center it on the page using CSS:
+                </p>
 
-                    <pre><code>
-                    h1 {
-                    color: #0078d7;
-                    text-align: center;
-                    }
-                    </code></pre>
+                <pre><code>
+                h1 {
+                color: #0078d7;
+                text-align: center;
+                }
+                </code></pre>
 
-                    <p>
-                        This CSS rule targets the <code>&lt;h1&gt;</code> element, sets its color to a blue shade, and aligns the text to the center of the page.
-                    </p>
+                <p>
+                    This CSS rule targets the <code>&lt;h1&gt;</code> element, sets its color to a blue shade, and aligns the text to the center of the page.
+                </p>
             </div>
 
             <!-- JavaScript Content -->
@@ -354,7 +354,11 @@
     <!-- Bootstrap JS -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Your custom JS -->
+    <script src="assets/js/taskbarManager.js"></script>
+    <script src="assets/js/windowManager.js"></script>
+    <script src="assets/js/clock.js"></script>
+    <script src="assets/js/notepad.js"></script>
     <script src="assets/js/script.js"></script>
-
+    
 </body>
 </html>
