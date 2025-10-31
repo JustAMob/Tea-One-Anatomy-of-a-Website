@@ -1,47 +1,74 @@
 const TaskbarManager = (() => {
   const taskbar = document.getElementById("task-buttons");
 
+  if (!taskbar) {
+    console.error("❌ Taskbar element with ID 'task-buttons' not found.");
+  } else {
+    console.log("✅ TaskbarManager initialized successfully.");
+  }
+
   function createButton(id, title, onClick) {
+    if (!taskbar) {
+      console.error("⚠️ Cannot create button — taskbar element missing.");
+      return null;
+    }
+    if (!id || !title) {
+      console.warn("⚠️ createButton called with missing parameters:", { id, title });
+    }
+
+    const existingBtn = document.querySelector(`.task-button[data-id="${id}"]`);
+    if (existingBtn) {
+      console.warn(`⚠️ Task button with id '${id}' already exists.`);
+      return existingBtn;
+    }
+
     const taskBtn = document.createElement("button");
     taskBtn.classList.add("task-button", "active");
-
     taskBtn.textContent = title;
     taskBtn.dataset.id = id;
 
-    taskBtn.setAttribute('role', 'button'); 
-    taskBtn.setAttribute('aria-pressed', 'false');
+    taskBtn.setAttribute("role", "button");
+    taskBtn.setAttribute("aria-pressed", "false");
+    taskBtn.setAttribute("tabindex", "0");
 
-    taskBtn.setAttribute('tabindex', '0');
+    if (typeof onClick === "function") {
+      taskBtn.addEventListener("click", onClick);
+    } else {
+      console.warn(`⚠️ onClick is not a function for task button '${id}'.`);
+    }
 
-    taskBtn.addEventListener("click", onClick);
     taskbar.appendChild(taskBtn);
+    console.log(`🆕 Created task button: ${title} (id: ${id})`);
     return taskBtn;
   }
 
   function activateButton(id) {
-    try {
-      const btn = document.querySelector(`.task-button[data-id="${id}"]`);
-      if (btn) btn.classList.add("active");
-    } catch (err) {
-      console.error(`TaskbarManager.activateButton failed for ${id}:`, err);
+    const btn = document.querySelector(`.task-button[data-id="${id}"]`);
+    if (btn) {
+      btn.classList.add("active");
+      console.log(`✅ Activated task button: ${id}`);
+    } else {
+      console.warn(`⚠️ Cannot activate — no button found with id: ${id}`);
     }
   }
 
   function deactivateButton(id) {
-    try {
-      const btn = document.querySelector(`.task-button[data-id="${id}"]`);
-      if (btn) btn.classList.remove("active");
-    } catch (err) {
-      console.error(`TaskbarManager.deactivateButton failed for ${id}:`, err);
+    const btn = document.querySelector(`.task-button[data-id="${id}"]`);
+    if (btn) {
+      btn.classList.remove("active");
+      console.log(`🟡 Deactivated task button: ${id}`);
+    } else {
+      console.warn(`⚠️ Cannot deactivate — no button found with id: ${id}`);
     }
   }
 
   function removeButton(id) {
-    try {
-      const btn = document.querySelector(`.task-button[data-id="${id}"]`);
-      if (btn) btn.remove();
-    } catch (err) {
-      console.error(`TaskbarManager.removeButton failed for ${id}:`, err);
+    const btn = document.querySelector(`.task-button[data-id="${id}"]`);
+    if (btn) {
+      btn.remove();
+      console.log(`🗑️ Removed task button: ${id}`);
+    } else {
+      console.warn(`⚠️ Cannot remove — no button found with id: ${id}`);
     }
   }
 
