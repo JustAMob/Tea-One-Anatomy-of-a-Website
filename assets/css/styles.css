@@ -544,9 +544,14 @@ a, button, .task-button, .window-controls button {
 .window-body {
   padding: 15px;
   flex: 1;
-  overflow-y: auto;
+  
   text-align: left;
   color: #000000;
+  
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+
 }
 
 /* Status Bar */
@@ -847,6 +852,59 @@ a, button, .task-button, .window-controls button {
 .window-body {
     scrollbar-color: #000000 #000000; 
     scrollbar-width: thin; 
+}
+
+
+/*NOTEPAD*/
+
+.notepad-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 15px; 
+}
+
+#notepadTextArea {
+    flex-grow: 1;
+    width: 100%;
+    
+    
+    border: 3px solid #000000;
+    background-color: #FFFFFF;
+    resize: none; 
+    
+    
+    font-family: 'Dogica', "Arial", sans-serif;
+    font-size: 12px;
+    color: #000000;
+    padding: 5px;
+}
+
+#saveFileButton {
+    
+    background-color: var(--color-accent, #ce4c26); 
+    color: #000000;
+    font-size: 12px;
+    font-weight: 900;
+    padding: 4px 12px; 
+    margin: 0;
+
+   
+    border: 3px solid #000000;
+    box-shadow: 4px 4px 0px #000000;
+    transition: all 0.1s ease;
+    cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
+}
+
+
+#saveFileButton:hover {
+    background-color: #3e5085; 
+}
+
+
+#saveFileButton:active {
+    box-shadow: 0px 0px 0px #000000;
+    transform: translate(4px, 4px);
 }
 
 
