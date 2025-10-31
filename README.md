@@ -2,6 +2,12 @@
 
 https://docs.google.com/document/d/1xnYCpO7v4ILDnnMXc347BcunOSVGzQtVNufqHU_76tw/edit?usp=sharing
 
+Project Plan Link:
+https://docs.google.com/spreadsheets/d/1Pn_7R2CawjDPLB7WtN4AvJ9YMLsZwl6kXgulI6tbXQY/edit?usp=sharing
+
+Anatomy of a Website Documentation:
+https://docs.google.com/document/d/1F7rcCOyk7vuXymBs59z6Iy0kchBA2RffyzjcnU9Uhco/edit?usp=sharing
+
 MO-IT161 WST | Milestone 1
 HTML & CSS Template
 
