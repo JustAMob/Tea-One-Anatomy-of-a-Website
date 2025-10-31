@@ -23,9 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener('keydown', handleArrowNavigation);
 
-  document.addEventListener('keydown', handleArrowNavigation);
-
-function handleArrowNavigation(e) {
+  function handleArrowNavigation(e) {
     // --- 1. Define All Navigable Selectors ---
     
     // Selects ALL focusable elements in the desktop/taskbar/active window
@@ -79,5 +77,84 @@ function handleArrowNavigation(e) {
         }
     }
   }
+
+  function handleGlobalShortcuts(e) {
+    const focusedElement = document.activeElement;
+    const activeWindow = document.querySelector('.window.active');
+    const key = e.key.toLowerCase();
+
+    
+    // A. PRIORITY INTERCEPTION 
+    
+    if (e.ctrlKey) {
+        // Stop browser default action immediately for W, M, R, T, and Tab
+        if (key === 'w' || key === 'm' || key === 'r' || key === 't' || key === 'tab') {
+            e.preventDefault(); 
+        }
+
+        // --- Ctrl + R (Global Refresh) ---
+        if (key === 'r') {
+            window.location.reload(); 
+            return;
+        }
+
+        // --- WINDOW MANAGEMENT SHORTCUTS ---
+        if (activeWindow) {
+            switch (key) {
+                case 'w': // Ctrl + W: Close Active Window
+                    
+                    WindowManager.close(activeWindow);
+                    return;
+                
+                case 'm': // Ctrl + M: Minimize Active Window
+                    
+                    WindowManager.minimize(activeWindow);
+                    return;
+                    
+                case 'tab': // Ctrl + Tab (Cycle Windows)
+                    cycleWindows(activeWindow);
+                    return;
+            }
+        }
+        
+        // --- Ctrl + T (Task Manager/Utility) ---
+        if (key === 't') {
+            WindowManager.createWindow('myComputer', 'Task Manager');
+            return;
+        }
+    }
+
+
+   
+    // B. HANDLE ACTIVATION (Enter / Space)
+    
+    if (key === 'Enter' || key === ' ') {
+        if (focusedElement && focusedElement.closest('.desktop-icon-link, button, a')) {
+            e.preventDefault();
+            focusedElement.click(); 
+            return; 
+        }
+    }
+  }
+
+  function cycleWindows(currentActiveWindow) {
+    
+    const allWindows = Array.from(document.querySelectorAll('.window:not(.hidden)'));
+    
+    if (allWindows.length < 2) return; // Nothing to cycle if only one or zero windows
+
+    const currentIndex = allWindows.indexOf(currentActiveWindow);
+    // Calculate the next window index, wrapping to the start (0)
+    const nextIndex = (currentIndex + 1) % allWindows.length;
+    
+    const nextWindow = allWindows[nextIndex];
+    
+    // Bring the next window to the front and make it active
+    WindowManager.bringToFront(nextWindow);
+    
+    // Optional: Focus the window body or title bar for keyboard users
+    nextWindow.focus(); 
+  }
+
 
 });

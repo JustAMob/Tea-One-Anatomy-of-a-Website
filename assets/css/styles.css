@@ -732,7 +732,6 @@ a, button, .task-button, .window-controls button {
 .task-button.active:focus-visible,
 .task-button.active:focus {
     
-    color:#ffffff;
     outline: 2px solid #000000; 
     outline-offset: -1px;      
     
