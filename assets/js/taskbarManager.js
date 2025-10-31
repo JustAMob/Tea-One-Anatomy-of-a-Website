@@ -12,6 +12,8 @@ const TaskbarManager = (() => {
     taskBtn.setAttribute('role', 'button'); 
     taskBtn.setAttribute('aria-pressed', 'false');
 
+    taskBtn.setAttribute('tabindex', '0');
+
     taskBtn.addEventListener("click", onClick);
     taskbar.appendChild(taskBtn);
     return taskBtn;

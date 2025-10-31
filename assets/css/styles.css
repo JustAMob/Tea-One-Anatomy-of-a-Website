@@ -129,6 +129,7 @@ a, button, .task-button, .window-controls button {
   flex-wrap: wrap;    
   align-content: flex-start; 
   
+  
   /* Resetting margins */
   margin-right: 15px;
   margin-bottom: 50px;
@@ -473,6 +474,14 @@ a, button, .task-button, .window-controls button {
   padding-bottom: 0;
 }
 
+
+.window-menu a:focus-visible, 
+.window-menu a:focus {
+    background-color: #ce4c26; 
+    color: #000000;
+  
+}
+
 /* Address Bar */
 .window-address {
   display: flex;
@@ -718,6 +727,16 @@ a, button, .task-button, .window-controls button {
     height: 95%;
     
     transform: none;
+}
+
+.task-button.active:focus-visible,
+.task-button.active:focus {
+    
+    color:#ffffff;
+    outline: 2px solid #000000; 
+    outline-offset: -1px;      
+    
+    background-color: #e56e39;
 }
 
 .task-button.active:active {

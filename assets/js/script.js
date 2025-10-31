@@ -18,4 +18,66 @@ window.addEventListener("DOMContentLoaded", () => {
   if (startButton) {
     startButton.addEventListener('click', () => window.location.reload());
   }
+
+  /*ACCESSIBILITY NAV*/
+
+  document.addEventListener('keydown', handleArrowNavigation);
+
+  document.addEventListener('keydown', handleArrowNavigation);
+
+function handleArrowNavigation(e) {
+    // --- 1. Define All Navigable Selectors ---
+    
+    // Selects ALL focusable elements in the desktop/taskbar/active window
+    const allNavigableSelector = 
+        // Desktop Icons
+        '.desktop-icon-link, ' +
+        // Taskbar Buttons
+        '.start-button button, .task-buttons button, ' +
+        // Active Window Controls
+        '.window.active .window-controls button, ' +
+        // Active Window Menu Links (a) and focusable items (tabindex="0")
+        '.window.active .window-menu a, ' +
+        '.window.active .window-menu [tabindex="0"], ' + 
+        // Active Window Body (if focusable, typically done with tabindex="0")
+        '.window.active .window-body[tabindex="0"]'; 
+    
+    // --- 2. Build the Dynamic Target List ---
+    const allTargets = Array.from(document.querySelectorAll(allNavigableSelector));
+    const focusedElement = document.activeElement;
+    
+    // Only proceed if a known element is focused
+    if (!allTargets.includes(focusedElement)) return; 
+
+    // Only process arrow keys
+    if (e.key.startsWith('Arrow')) {
+        e.preventDefault(); 
+
+        const totalTargets = allTargets.length;
+        const currentIndex = allTargets.indexOf(focusedElement);
+        let nextIndex = -1;
+
+        switch (e.key) {
+            case 'ArrowDown':
+            case 'ArrowRight':
+                // Move forward (Right/Down)
+                nextIndex = currentIndex + 1;
+                if (nextIndex >= totalTargets) nextIndex = 0; // Wrap to beginning
+                break;
+
+            case 'ArrowUp':
+            case 'ArrowLeft':
+                // Move backward (Left/Up)
+                nextIndex = currentIndex - 1;
+                if (nextIndex < 0) nextIndex = totalTargets - 1; // Wrap to end
+                break;
+        }
+
+        // Apply focus
+        if (nextIndex >= 0 && nextIndex < totalTargets) {
+            allTargets[nextIndex].focus();
+        }
+    }
+  }
+
 });
