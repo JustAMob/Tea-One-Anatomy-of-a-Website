@@ -42,6 +42,8 @@ a {
   text-decoration: none;
 }
 
+
+
 ul, ol {
   list-style: none;
 }
@@ -100,7 +102,7 @@ a, button, .task-button, .window-controls button {
      1px  1px 0 black;
 
 }
-
+/*
 .desktop ul {
 
   list-style: none;
@@ -113,34 +115,62 @@ a, button, .task-button, .window-controls button {
   margin-right: 15px;
   margin-bottom: 50px;
 
+}*/
+
+
+
+.desktop ul {
+  list-style: none;
+  padding: 0; 
+  margin: 0;
+  
+  display: flex;
+  flex-direction: column; 
+  flex-wrap: wrap;    
+  align-content: flex-start; 
+  
+  
+  /* Resetting margins */
+  margin-right: 15px;
+  margin-bottom: 50px;
+  
+  width: 100%;
 }
 
-.desktop li {
-  margin: 10px 0;
-}
 
-/*FOR NOTEPAD APP!!!*/
-
-.desktop ul li:nth-last-child(1),
-.desktop ul li:nth-last-child(2) {
+.desktop ul li:nth-last-child(1), 
+.desktop ul li:nth-last-child(2), 
+.desktop ul li:nth-last-child(3) { 
 
   position: absolute;
   bottom: 100px;
   margin: 0;
   z-index: 5;
-
 }
+
 
 .desktop ul li:nth-last-child(1) {
-
-    left: calc(50% - 82.5px); 
+    /* (50% + 45px) */
+    left: calc(50% + 45px); 
 }
+
 
 .desktop ul li:nth-last-child(2) {
-
-    left: calc(50% + 2.5px);
-  
+    /* (50% - 45px) */
+    left: calc(50% - 45px); 
 }
+
+
+.desktop ul li:nth-last-child(3) {
+    /* (50% - 135px) */
+    left: calc(50% - 135px); 
+}
+
+.desktop li {
+  margin: 10px 10px;
+  width: 80px;
+}
+
 
 .desktop a {
   display: flex;
@@ -237,9 +267,13 @@ a, button, .task-button, .window-controls button {
 
 .desktop-icon-link .open-icon {
     /* Hidden by opacity, but ready to be displayed */
-    display: block !important; /* Must be block so its dimensions are honored */
+    display: block !important; 
     opacity: 0;
     transition: opacity 0.2s; 
+}
+
+.desktop-icon-link.centered-group {
+    margin-left: auto;
 }
 
 
@@ -440,6 +474,14 @@ a, button, .task-button, .window-controls button {
   padding-bottom: 0;
 }
 
+
+.window-menu a:focus-visible, 
+.window-menu a:focus {
+    background-color: #ce4c26; 
+    color: #000000;
+  
+}
+
 /* Address Bar */
 .window-address {
   display: flex;
@@ -497,65 +539,6 @@ a, button, .task-button, .window-controls button {
   font-weight: bold;
 }
 
-/* Text styles  */
-.image-row {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-.image-row img {
-  width: 150px;
-}
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 1000px;
-  margin: auto;
-  gap: 20px; 
-}
-
-/* Horizontal layout (default) */
-.container.horizontal {
-  flex-direction: row;
-}
-
-/* Vertical layout */
-.container.vertical {
-  flex-direction: column;
-  text-align: center;
-}
-
-.image-section img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  display: block;
-  object-fit: cover;
-}
-
-/* Let image and text adjust dynamically */
-.image-section {
-  flex: 1 1 60%;
-}
-.image-section img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-
-.text-section {
-  flex: 1 1 40%;
-  padding: 20px;
-}
-
-/* stack vertically on small screens */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-}
 
 /* === TASKBAR === */
 .taskbar {
@@ -746,6 +729,15 @@ a, button, .task-button, .window-controls button {
     transform: none;
 }
 
+.task-button.active:focus-visible,
+.task-button.active:focus {
+    
+    outline: 2px solid #000000; 
+    outline-offset: -1px;      
+    
+    background-color: #e56e39;
+}
+
 .task-button.active:active {
     box-shadow: 0px 0px 0px #000000; 
     transform: translate(2px, 2px); /* Snappy click feedback */
@@ -778,4 +770,22 @@ a, button, .task-button, .window-controls button {
 .window-body {
     scrollbar-color: #000000 #000000; 
     scrollbar-width: thin; 
+}
+
+
+
+/* ACCESSIBILITY */
+
+
+a:focus-visible, button:focus-visible {
+
+    outline: none; 
+    box-shadow: 0 0 0 3px #ce4c26, 0 0 0 6px #000000;
+}
+
+/* Fallback for older browsers that don't support :focus-visible */
+a:focus:not(:focus-visible), button:focus:not(:focus-visible) {
+    /* When clicked by mouse, DO NOT show the intrusive focus ring */
+    outline: none;
+    box-shadow: none;
 }
