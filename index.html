@@ -58,7 +58,7 @@
 
 
 
-        <li><a href="#recycleBin" class="desktop-icon-link">
+        <li><a href="#recycleBin" class="desktop-icon-link centered-group">
             <img src="assets/images/Retro-RecycleBin.png" alt="Recycling Bin" class="icon solid fa-folder">
             <span>Recycle Bin</span>
         </a></li>
@@ -72,8 +72,8 @@
 
         <li>
             <a href="#notepadApp" class="desktop-icon-link">
-            <img src="assets/images/ClosePad.png" alt="My Computer Closed" class="closed-icon">
-            <img src="assets/images/OpenPad.png" alt="My Computer Open" class="open-icon">
+            <img src="assets/images/Retro-CloseNotepad.png" alt="Notepad Closed" class="closed-icon">
+            <img src="assets/images/Retro-OpenNotepad.png" alt="Notepad Open" class="open-icon">
             <span>Notepad</span>
             </a>
         </li>
@@ -81,6 +81,7 @@
 
         </ul>
     </nav>
+    
 
     
     <main>
@@ -93,16 +94,16 @@
             <div class="window-controls">
             <button onclick="WindowManager.minimize(this)">
 
-            <img src="assets/images/Retro-Minimize.png" alt="Minimize Icon">
+            <img src="assets/images/Retro-Minimize.png" aria-label="Minimize Window" alt="Minimize Icon">
             </button>
     
             <button class="maximize-restore-toggle" onclick="WindowManager.maximize(this)">
-            <img src="assets/images/Retro-Maximize.png" alt="Maximize Icon" class="maximize-icon">
-            <img src="assets/images/Retro-Restore.png" alt="Restore Icon" class="restore-icon hidden"> 
+            <img src="assets/images/Retro-Maximize.png" aria-label="Maximize Window" alt="Maximize Icon" class="maximize-icon">
+            <img src="assets/images/Retro-Restore.png" aria-label=" Restore Window" alt="Restore Icon" class="restore-icon hidden"> 
             </button>
     
             <button onclick="WindowManager.close(this)">
-            <img src="assets/images/Retro-Close.png" alt="Close Icon">
+            <img src="assets/images/Retro-Close.png" aria-label="Close Window" alt="Close Icon">
             </button>
 
             </div>
@@ -133,17 +134,19 @@
             
          <!-- Default (Welcome) -->
             <div id="welcome" class="content-block">
-                <h1>What is a Website?</h1>
-                <p><em>This... is a website!</em></p>
-                <p>(not final look, will make this more modern and aesthetic + readable)</p>
+                <h1>Welcome to Anatomy of a Website</h1>
+                <br>
                 <p>
-                this ‘folder’s’ window should be interactive (information will appear via
-                hover/click, it’s scrollable, it has a menu, like most websites: basically,
-                it’s the standard look of a basic website but all parts within it are moveable
-                and interactable.)
+                    The objective of this web development project is to build an interactive static website
+                    that explains the core components of a modern web page, making HTML, CSS, and JavaScript
+                    more accessesible to beginners. Beyond serving as a learning tool, the project will showcase
+                    the team's understatanding of foundational web technologies through a GitHub-hosted site that
+                    demostrates skills in file management, client-side scripting, and responsive design.
                 </p>
+                <br>
                 <p>
-                ... and behind all these are three essential technologies:
+                    This website will function not onluy as an educational resource but also as a unique protfolio
+                    piece highlighting both technical expertise and innovative user experience.
                 <b>HTML</b>, <b>CSS</b>, and <b>JavaScript</b>.  
                 Click on the other folders to learn more!
                 </p>
@@ -172,11 +175,11 @@
                     information and let you interact with it.
                 </p>
                 <div class="image-row">
-                    <img src="abc.png" alt="Website Structure Diagram" style="margin-top:10px; width:600px;">
+                    <img src="assets/images/website-computerzen.png" alt="Computerzen Website" style="margin-top:10px; width:600px;">
                 </div>
                 <p>In simple terms:<br> THink of a website as abook and each webpage is like a page in that book.</p>
                 <div class="image-row">
-                    <img src="abc.png" alt="Website Structure Diagram" style="margin-top:10px; width:600px;">
+                    <img src="assets/images/website-mircosoft-frontpage97.png" alt="Microsoft Front Page" style="margin-top:10px; width:600px;">
                 </div>
                 <div class="container image-right">
                     <div class="text-section">
@@ -191,7 +194,7 @@
                         </p>
                     </div>
                     <div class="image-section">
-                        <img src="image.jpg" alt="Basic Webpage Layout">
+                        <img src="assets/images/website-blank-url.png" alt="Basic Webpage Layout">
                     </div>
                 </div>
                 <div class="container image-right">
@@ -205,23 +208,78 @@
                         </p>
                     </div>
                     <div class="image-section">
-                        <img src="image.jpg" alt="Two Unique Webpage">
+                        <img src="assets/images/website-yahoo-pages.jpg" alt="Yahoo Webpages">
                     </div>
                 </div>
             </div>
 
             <!-- HTML Content -->
             <div id="htmlFolder" class="content-block">
-                <h1>HTML</h1>
-                <p>HTML stands for <b>Hypertext Markup Language</b>.</p>
-                <p>It is the structure of the website — headings, paragraphs, links, images, and more.</p>
+                <h1>Hypertext Markup Language</h1>  
+                <div class="container image-left">
+                    <div class="image-section">
+                        <img src="assets/images/html-sample-code.jpg" alt="HTML sample code">
+                    </div>
+                    <div class="text-section">
+                        <p>
+                        <b>HTML (Hypertext Markup Language)</b> is basically the building blocks of a webpage
+                            It's like giving instructions to your computer on what should appear—such as titles,
+                            paragraphs, images, links, and more. Imagine it as the skeleton of a house. It doesn't
+                            make things coloful or stylish but it makes sure everything is in the right place so the
+                            website has structure and content. 
+                        </p>
+                    </div>
+                </div>   
+                <div class="container image-left">
+                    <div class="image-section">
+                        <img src="assets/images/html-microsoft-frontpage.png" alt="HTML sample code">
+                    </div>
+                    <div class="text-section">
+                        <p>
+                        <b>HTML</b> is the standard markup language used to create documents on the World Wide Web.
+                        It allows authors to structure content such as text, images, videso , and hyperlinks in a
+                        way web browsers can interpret and display. HTML uses a system of tags and elements to define the
+                        various parts of a webpage, such as headings, paragraphs, lists, links, and multimedia
+                        </p>
+                    </div>
+                </div>
+                
             </div>
 
             <!-- CSS Content -->
             <div id="cssFolder" class="content-block">
-                <h1>CSS</h1>
-                <p>CSS stands for <b>Cascading Style Sheets</b>.</p>
-                <p>It’s used to style the website — colors, fonts, layouts, animations, etc.</p>
+                <h1>Cascading Style Sheets</h1>
+                 <div class="container image-left">
+                    <div class="image-section">
+                        <img src="assets/images/css sample 1.png" alt="HTML sample code">
+                    </div>
+                    <div class="text-section">
+                        <p>
+                        <b>Where websites find their style</b><br> 
+                        CSS [Cascading Style Sheets] is what makes a website look good. It controls the colors,
+                        fonts, layouts, and overall visual appearance. If HTML is the skeleton, CSS is the skin,
+                        clothes, and makeup that make the website attractive and user-friendly. It tells the browser 
+                        how each element should appear — whether it’s a big, bold heading, a pastel background, or 
+                        smooth button animation.
+                        </p>
+                    </div>
+                </div>
+                <h1>Anayomy of a CSS Rule</h1>
+                <div class="container vertical">
+                     <p>
+                    Here’s an example of how you can change the color of a heading and center it on the page using CSS:
+                </p>
+
+                <pre><code>
+                h1 {
+                color: #0078d7;
+                text-align: center;
+                }
+                </code></pre>
+
+                <p>
+                    This CSS rule targets the <code>&lt;h1&gt;</code> element, sets its color to a blue shade, and aligns the text to the center of the page.
+                </p>
             </div>
 
             <!-- JavaScript Content -->
@@ -276,18 +334,18 @@
         
          <!-- Start button -->
         <div class="start-button">
-            <button>‎end‎</button>
+            <button aria-label="Refresh Button">‎end‎</button>
         </div>
 
         <div id="task-buttons" class="task-buttons"></div>
 
         <!-- System tray -->
         <div class="system-tray">
-            <span class="lang">EN</span>
+            <span class="lang" aria-label="Current System Language">EN</span>
             <span> | </span>
-            <span id="currentDate"></span>
+            <span id="currentDate" role="status" aria-live="polite"></span>
             <span> | </span>
-            <span id="currentTime"></span>
+            <span id="currentTime" role="status" aria-live="polite"></span>
         </div>
 
 
@@ -302,6 +360,6 @@
     <script src="assets/js/clock.js"></script>
     <script src="assets/js/notepad.js"></script>
     <script src="assets/js/script.js"></script>
-
+    
 </body>
 </html>
