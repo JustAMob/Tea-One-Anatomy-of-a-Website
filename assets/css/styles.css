@@ -7,10 +7,24 @@
   box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'Dogica';
+    src:url('../fonts/dogicapixel.ttf') format('truetype'),
+        url('../fonts/dogicapixelbold.ttf') format('truetype'),
+        url('../fonts/dogicapixel.otf') format('opentype'),
+        url('../fonts/dogicapixelbold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html, body {
   height: 100%;
+  overflow: hidden;
   font-size: 100%;
   line-height: 1.5;
+  margin: 0; 
+  padding: 0;
+  overflow-x: hidden !important;
 }
 
 img, picture, video, canvas, svg {
@@ -34,26 +48,98 @@ ul, ol {
 
 /* === BASE === */
 body {
-  font-family: "Courier New", monospace;
-  background: url('../images/WindowsXPBackground.jpg') no-repeat center center fixed;
+  font-family: 'Dogica', "Arial", sans-serif;
+  background: url('../images/Kahel-Na-Maayos-Na-Talaga.png') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  cursor: url('assets/cursors/arrow.png') 0 0, default;
 }
 
+a, button, .task-button, .window-controls button {
+    cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
+}
+
+.window-header {
+    cursor: url('assets/cursors/Cursor_10.png')16 16, move; 
+}
+.window-header:active {
+    cursor: grabbing; 
+}
+
+
 /* === DESKTOP === */
-.desktop ul {
-  font-size: 10px;
-  font-family: Arial, sans-serif;
+
+
+.desktop {
+
+  flex: 1;
+  position: relative;
+  width: 100%;
+  overflow-y: auto;
+
+  padding: 15px 15px 15px 30px;
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  font-size: 11px;
+  font-family: 'Dogica', "Arial", sans-serif;
   color: white;
+
   text-shadow:
     -1px -1px 0 black,
      1px -1px 0 black,
     -1px  1px 0 black,
      1px  1px 0 black;
+
+}
+
+.desktop ul {
+
+  list-style: none;
+  padding: 0; 
+  margin: 0;
+  
+  display: flex;
+  flex-direction: column;
+
+  margin-right: 15px;
+  margin-bottom: 50px;
+
 }
 
 .desktop li {
-  margin: 20px 0;
+  margin: 10px 0;
+}
+
+/*FOR NOTEPAD APP!!!*/
+
+.desktop ul li:nth-last-child(1),
+.desktop ul li:nth-last-child(2) {
+
+  position: absolute;
+  bottom: 100px;
+  margin: 0;
+  z-index: 5;
+
+}
+
+.desktop ul li:nth-last-child(1) {
+
+    left: calc(50% - 82.5px); 
+}
+
+.desktop ul li:nth-last-child(2) {
+
+    left: calc(50% + 2.5px);
+  
 }
 
 .desktop a {
@@ -63,8 +149,10 @@ body {
   width: 80px;
   color: white;
   text-align: center;
-  font-size: 10px;
-  font-family: Arial, sans-serif;
+
+  font-family: 'Dogica', "Arial", sans-serif;
+  font-weight: 700; 
+  text-transform: lowercase;
 }
 
 .desktop a img {
@@ -77,141 +165,486 @@ body {
   display: block;
   line-height: 1.2;
   margin-top: 2px;
+
+  padding: 1px 3px;
+  border: 1px solid transparent; 
+  transition: all 0.1s ease-out;
 }
 
 .desktop a:hover span {
-  text-decoration: underline;
+  background-color: rgba(62, 80, 133, 0.7); 
+  text-decoration: none; 
+  border: 3px solid #ffffff;
+
+  padding: 3px 7px;
 }
 
-/* === WINDOWS === */
-.window {
+.desktop-icon-link {
+    
+    position: relative; 
+    
+    /* Display the link vertically */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    
+    height: 75px; 
+    width: 80px;  
+}
+
+.desktop-icon-link img {
+  
   position: absolute;
-  top: 50%;
+  top: 0;
+
   left: 50%;
-  width: 600px;
-  background: white;
-  border: 2px solid #000080;
-  font-family: "Courier New", monospace;
-  font-size: 14px;
+  transform: translateX(-50%);
+
+  width: 40px; 
+  height: 40px;
+}
+
+.desktop-icon-link span {
+
+  position:absolute;
+  top: 45px;
+
+  width: 100%; 
+  white-space: normal;
+
+
+    
+  /* Center the text (even if it wraps) */
+  text-align: center;
+    
+  
+  color: white; 
+  text-shadow:
+        -1px -1px 0 black,
+         1px -1px 0 black,
+        -1px  1px 0 black,
+         1px  1px 0 black;
+}
+
+
+.desktop-icon-link .closed-icon {
+  /* Ensure the default icon is displayed */
+  display: block !important; 
+  opacity: 1;
+}
+
+.desktop-icon-link .open-icon {
+    /* Hidden by opacity, but ready to be displayed */
+    display: block !important; /* Must be block so its dimensions are honored */
+    opacity: 0;
+    transition: opacity 0.2s; 
+}
+
+
+/* 3. Active State (Icon is OPENNNN) */
+.desktop-icon-link.active .closed-icon {
+    /* Hide the closed icon */
+    opacity: 0;
+}
+
+
+.desktop-icon-link.active .open-icon {
+    /* Show the open icon */
+    opacity: 1;
+}
+
+
+/* === WINDOWS === */
+
+.window {
+  
+  /* Positioning & Sizing */
+  position: absolute;
+  top: calc(50vh - 25px);
+  left: 50%;
+  width: 900px; 
+  max-width: 100vw;
+  height: 500px; 
+
+  transform: translate(-50%, -50%);
+  transition: 
+        opacity 0.15s ease-out;
+  
+  background-color: #FFFFFF; 
+  border: 3px solid #000000; 
+  box-shadow: 8px 8px 0px #000000;
+    
+  font-family: 'Dogica', "Arial", sans-serif;
+  font-size: 12px;
+    
   display: flex;
   flex-direction: column;
-  transform: translate(-50%, -50%);
+
+
+  min-width: 300px;  
+  min-height: 150px; 
+
   resize: both;
-  overflow: auto;
-  box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+  overflow: hidden; /* Hide scrollbars on the window container itself */
+  z-index: 100;
+
+  cursor: url('assets/cursors/Cursor_6.png'), default;
+}
+
+
+.window.animated {
+    transition: 
+        opacity 0.15s ease-out,
+        
+      
+        width 0.3s ease-in-out,
+        height 0.3s ease-in-out,
+        top 0.3s ease-in-out,
+        left 0.3s ease-in-out,
+        transform 0.3s ease-in-out;
 }
 
 /* Header Bar */
 .window-header {
-  background: #000080;
-  color: white;
-  padding: 3px 6px;
+
+  background-color: #e56e39;
+  color: #000000;
+
+  padding: 8px 10px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: bold;
-  cursor: move;
+  font-weight: 900;
+  cursor: url('assets/cursors/Cursor_10.png')16 16, move; 
   user-select: none;
+
+  border-bottom: 3px solid #000000;
+}
+
+.window.inactive .window-header {
+  background-color: #3e5085; 
+  color: #FFFFFF;
+}
+
+.window-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.window-controls button { 
+  
+  background-color: #ce4c26; 
+  
+  line-height: 1;
+  width: 25px;
+  height: 25px;
+  
+  padding: 0 !important;
+    
+  /* Neobrutalism Button Look */
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px #000000;
+  cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
+    
+  transition: all 0.1s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.window-controls button:hover {
+    
+    background-color: #3e5085; 
+    box-shadow: 2px 2px 0px #000000;
+    
+    transform: none; 
+}
+
+.window-controls button:active {
+    /* The "Press" Effect */
+    box-shadow: 0px 0px 0px #000000;
+    transform: translate(2px, 2px);
+}
+
+.window-controls button img {
+  
+  width: 18px; 
+  height: 18px;
+  margin: 0 auto; 
+}
+
+.window-controls .restore-icon {
+  display: none;
+}
+
+.window.maximized {
+    
+    /* 1. POSITIONING: Pin to all four corners */
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important; 
+    
+    /* 2. DIMENSIONS: Use left/right to define width, and calc() for height */
+    width: auto !important; /* Let left/right define width */
+    height: calc(100vh - 50px) !important; 
+
+    /* 3. CONFLICT RESOLUTION */
+    /* Clears the initial centered positioning */
+    transform: none !important; 
+
+    resize: none !important;
+    overflow: hidden !important;
+    
+    margin: 0 !important;
+    padding: 0 !important; 
+}
+
+.window.maximized .maximize-icon {
+  display: none;
+}
+
+.window.maximized .restore-icon {
+  display: block !important; 
 }
 
 /* Menu Bar */
 .window-menu {
-  background: #ececec;
-  border-bottom: 1px solid #ccc;
-  padding: 2px 5px;
+  background: #FFFFFF;
+  border-bottom: 3px solid #000000; 
+  padding: 5px 10px;
 }
 
-.window-menu button {
+.window-menu a {
   background: transparent;
   border: none;
-  margin-right: 10px;
-  cursor: pointer;
-  font-size: 13px;
+
+  border-bottom: 3px solid transparent;
+
+
+  margin-right: 15px; 
+  cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
+  font-size: 11px;
+  font-weight: bold;
+  color: #000000;
+
+  display: inline-block;
+}
+
+.window-menu a:hover {
+
+  border-bottom: 3px solid #000000;
+  padding-bottom: 0;
 }
 
 /* Address Bar */
 .window-address {
   display: flex;
   align-items: center;
-  padding: 3px;
-  background: #f0f0f0;
-  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+  background: #f0f0f0; 
+  /* High-contrast separator */
+  border-bottom: 3px solid #000000;
 }
 
 .window-address label {
-  margin-right: 5px;
+  margin-right: 10px;
+  color: #000000;
+  font-weight: bold;
 }
 
 .window-address input {
   flex: 1;
-  padding: 2px;
-  border: 1px solid #aaa;
+  padding: 4px;
+
+  /* Neobrutalist Input: Black border on white background */
+  border: 2px solid #000000; 
+  background-color: #FFFFFF;
 }
 
 .window-address button {
-  margin-left: 5px;
-  padding: 2px 8px;
-  border: 1px solid #888;
-  background: #e0e0e0;
-  cursor: pointer;
+  margin-left: 10px;
+  padding: 4px 10px;
+
+  /* Neobrutalist Button Look */
+  border: 2px solid #000000;
+  background: #ce4c26; 
+  color: #000000;
+  cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
+  box-shadow: 2px 2px 0px #000000;
 }
 
 /* Body */
 .window-body {
-  padding: 10px;
+  padding: 15px;
   flex: 1;
   overflow-y: auto;
-  text-align: center;
+  text-align: left;
+  color: #000000;
 }
 
 /* Status Bar */
 .window-status {
-  background: #ececec;
-  border-top: 1px solid #ccc;
-  padding: 2px 5px;
+  background: #FFFFFF;
+  
+  border-top: 3px solid #000000; 
+  padding: 5px 10px;
   font-size: 12px;
-  color: #333;
+  color: #000000;
+  font-weight: bold;
+}
+
+/* Text styles  */
+.image-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.image-row img {
+  width: 150px;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  gap: 20px; 
+}
+
+/* Horizontal layout (default) */
+.container.horizontal {
+  flex-direction: row;
+}
+
+/* Vertical layout */
+.container.vertical {
+  flex-direction: column;
+  text-align: center;
+}
+
+.image-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  object-fit: cover;
+}
+
+/* Let image and text adjust dynamically */
+.image-section {
+  flex: 1 1 60%;
+}
+.image-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.text-section {
+  flex: 1 1 40%;
+  padding: 20px;
+}
+
+/* stack vertically on small screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
 }
 
 /* === TASKBAR === */
 .taskbar {
+  
+  /* POSITIONING AND SIZEE */
   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
-  height: 35px;
-  background: #2b2b2b;
-  color: white;
+  width: 100%;
+  height: 50px; 
+
+  z-index: 1000;
+
+  background-color: #221045;
+  color: #FFFFFF;
+
+  /* Layout using Flexbox: Start Button | Task Buttons | System Tray */
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-top: 2px solid #000;
-  padding: 0 5px;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
+  padding: 3px 15px 3px 15px;
+
+  justify-content: flex-start;
+  border-top: 3px solid #000000;
+
+  font-family: 'Dogica', "Arial", sans-serif;
+  font-size: 11px;
 }
 
 /* Start Button */
 .start-button button {
-  background: linear-gradient(#3c3c3c, #1a1a1a);
-  color: white;
-  border: 1px solid #111;
-  padding: 5px 12px;
-  font-weight: bold;
-  cursor: pointer;
+  /* Sets the button color and text */
+  background-color: #e56e39; 
+  color: #000000;
+    
+  /* Font and padding to size the button */
+  font-size: 12px;
+  font-weight: 900;
+  padding: 4px 12px; 
+  margin: 0;
+  margin-right: 15px;
+  height: 100%;
+
+  /* Removes default browser button styling */
+  border: 3px solid #000000;
+  outline: none;
+  cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
+
+  /* THE NEOBRUTALISM SHADOW */
+  box-shadow: 4px 4px 0px #000000;
+  transition: all 0.1s ease;
+}
+
+.start-button button:hover {
+    background-color: #3e5085; 
+}
+
+/* The "Press" Effect (Shifts into the shadow) */
+.start-button button:active {
+    box-shadow: 0px 0px 0px #000000; /* Shadow disappears */
+    transform: translate(4px, 4px); /* Element moves down/right */
 }
 
 /* System Tray */
+
 .system-tray {
+  /* Visual styling */
+  /* Base color for the time/language display */
+
+  background-color: #3e5085;
+  color: #edebeb; /* White text for time/lang */
+  font-size: 14px;
+  font-weight: 900;
+  
+  padding: 4px 4px 4px 4px;
+    
   display: flex;
   align-items: center;
-  gap: 15px;
+
+  /* Neobrutalism: Thick black border */
+  border: 3px solid #000000; 
+  box-shadow: 4px 4px 0px #000000;
+    
+
 }
 
-.system-tray .lang {
-  background: #444;
-  padding: 2px 5px;
-  border: 1px solid #222;
+.system-tray span {
+
+    vertical-align: top;
+    margin: 0 5px; 
 }
 
 /* === CONTENT VISIBILITY === */
@@ -243,28 +676,106 @@ body {
 }
 
 /* === TASKBAR BUTTONS === */
+
 .task-buttons {
-  display: flex;
-  gap: 5px;
-  flex: 1;
-  justify-content: flex-start;
-  margin: 0 10px;
+    display: flex;
+    gap: 8px; 
+    /*flex: 1;*/
+    justify-content: flex-start;
+
+    padding-left: 12px; 
+    
+    /* DIVIDER */
+    border-left: 3px solid #000000; 
+
+    margin: 0; 
+    margin-right: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+
+    align-items: flex-end; /* Keeps tabs anchored to the bottom */
+    height: 100%; 
 }
 
 .task-button {
-  background: #444;
-  border: 1px solid #222;
-  color: white;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 13px;
+
+    /*Base Blue for inactive tabs */
+    background-color: #3e5085; 
+    color: #8da4eb; 
+    
+    /* Text and Sizing */
+    padding: 5px 10px;
+    cursor: url('assets/cursors/Cursor_15.png')8 10, pointer;
+    font-size: 12px;
+    font-weight: 780;
+    text-transform: lowercase;
+    
+    /* Neobrutalist Borders: Flat, simple border */
+    border: 3px solid #000000;
+    border-bottom: none; 
+
+    margin-bottom: -3px; 
+
+    /* Height: Slightly less than 100% so flex-end can work */
+    height: 85%;
+
+    transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out, margin-bottom 0.2s ease-out;
+
+}
+
+.task-button:hover:not(.active) {
+    background-color: #485f95; 
 }
 
 .task-button.active {
-  background: #666;
-  border: 1px solid #333;
+   
+    background-color: #ce4c26; 
+    color: #000000; 
+    border: 3px solid #000000; 
+    border-bottom: none;
+    
+    /* NEOBRUTALISM SHADOW: Only the active tab uses the prominent shadow */
+    box-shadow: 2px 2px 0px #000000; 
+
+    margin-bottom: -3px; 
+    
+    /* Slightly taller active tab */
+    height: 95%;
+    
+    transform: none;
 }
 
+.task-button.active:active {
+    box-shadow: 0px 0px 0px #000000; 
+    transform: translate(2px, 2px); /* Snappy click feedback */
+}
+
+
+
 .hidden {
-  display: none !important;
+    display: none !important;
+}
+
+
+/*Scrollbaaaaaaaaars*/
+
+.window-body::-webkit-scrollbar {
+    width: 15px; 
+    height: 15px;
+}
+
+.window-body::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+
+.window-body::-webkit-scrollbar-thumb {
+    background-color: #000000;
+}
+
+/* Firefox scrollbar styling */
+.window-body {
+    scrollbar-color: #000000 #000000; 
+    scrollbar-width: thin; 
 }
