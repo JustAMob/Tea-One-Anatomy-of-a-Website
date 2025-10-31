@@ -289,11 +289,16 @@
                 <p>It handles clicks, forms, animations, and dynamic updates.</p>
             </div>
 
-            <!-- Notepad App -->
-            <div id="notepadApp" class="content-block">
-            <textarea id="notepadTextArea" style="width:100%; height:400px; font-family:monospace;"></textarea>
-            <button onclick="saveNotepadFile()" style="margin-top:5px;">Save as .txt</button>
-            </div>
+                <!-- Notepad App -->
+                <div id="notepadApp" class="content-block">
+    
+                <div   div class="notepad-toolbar">
+                <button id="saveFileButton" onclick="NotepadModule.saveFile()">save as .txt</button>
+                </div>
+    
+                <textarea id="notepadTextArea"></textarea>
+    
+                </div>
 
             <!-- Fun Extra: My Dog -->
             <div id="aboutFolder" class="content-block">
