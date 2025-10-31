@@ -82,11 +82,47 @@ window.addEventListener("DOMContentLoaded", () => {
     const focusedElement = document.activeElement;
     const activeWindow = document.querySelector('.window.active');
     const key = e.key.toLowerCase();
+    
+    // Define the element that contains the scrollable content
+    const activeWindowBody = activeWindow ? activeWindow.querySelector('.window-body') : null;
+    const scrollAmount = 100; //how many pixels to scroll per key press
+
+   
+    // A. HANDLE SCROLLING KEYS 
+    
+    if (activeWindowBody) {
+        let scrollHandled = false;
+        
+        switch (e.key) {
+            case 'PageDown':
+                activeWindowBody.scrollTop += activeWindowBody.clientHeight; // Scroll a full page height
+                scrollHandled = true;
+                break;
+            case 'PageUp':
+                activeWindowBody.scrollTop -= activeWindowBody.clientHeight; // Scroll a full page height
+                scrollHandled = true;
+                break;
+            case 'Home':
+                activeWindowBody.scrollTop = 0; // Scroll to the very top
+                scrollHandled = true;
+                break;
+            case 'End':
+                activeWindowBody.scrollTop = activeWindowBody.scrollHeight; // Scroll to the very bottom
+                scrollHandled = true;
+                break;
+        }
+
+        if (scrollHandled) {
+            e.preventDefault();
+            return; // Prevent other keyboard actions while scrolling
+        }
+    }
 
     
-    // A. PRIORITY INTERCEPTION 
+    // B. PRIORITY INTERCEPTION (Existing Ctrl Logic)
     
     if (e.ctrlKey) {
+        
         // Stop browser default action immediately for W, M, R, T, and Tab
         if (key === 'w' || key === 'm' || key === 'r' || key === 't' || key === 'tab') {
             e.preventDefault(); 
@@ -102,14 +138,20 @@ window.addEventListener("DOMContentLoaded", () => {
         if (activeWindow) {
             switch (key) {
                 case 'w': // Ctrl + W: Close Active Window
-                    
-                    WindowManager.close(activeWindow);
-                    return;
+                    const closeButton = activeWindow.querySelector('.window-controls button:last-child');
+                    if (closeButton) {
+                        closeButton.click();
+                        return;
+                    }
+                    break;
                 
                 case 'm': // Ctrl + M: Minimize Active Window
-                    
-                    WindowManager.minimize(activeWindow);
-                    return;
+                    const minimizeButton = activeWindow.querySelector('.window-controls button:first-child');
+                    if (minimizeButton) {
+                        minimizeButton.click();
+                        return;
+                    }
+                    break;
                     
                 case 'tab': // Ctrl + Tab (Cycle Windows)
                     cycleWindows(activeWindow);
@@ -126,7 +168,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
    
-    // B. HANDLE ACTIVATION (Enter / Space)
+    // C. HANDLE ACTIVATION (Enter / Space)
     
     if (key === 'Enter' || key === ' ') {
         if (focusedElement && focusedElement.closest('.desktop-icon-link, button, a')) {
