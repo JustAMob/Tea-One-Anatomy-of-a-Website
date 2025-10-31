@@ -42,6 +42,8 @@ a {
   text-decoration: none;
 }
 
+
+
 ul, ol {
   list-style: none;
 }
@@ -753,3 +755,19 @@ a, button, .task-button, .window-controls button {
 }
 
 
+
+/* ACCESSIBILITY */
+
+
+a:focus-visible, button:focus-visible {
+
+    outline: none; 
+    box-shadow: 0 0 0 3px #ce4c26, 0 0 0 6px #000000;
+}
+
+/* Fallback for older browsers that don't support :focus-visible */
+a:focus:not(:focus-visible), button:focus:not(:focus-visible) {
+    /* When clicked by mouse, DO NOT show the intrusive focus ring */
+    outline: none;
+    box-shadow: none;
+}

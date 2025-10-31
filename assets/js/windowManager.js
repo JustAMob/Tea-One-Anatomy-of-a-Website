@@ -46,6 +46,9 @@ const WindowManager = (() => {
 
     const body = newWin.querySelector(".window-body");
     if (body) {
+    
+      body.setAttribute('tabindex', '0');
+    
       const content = document.getElementById(id);
       body.innerHTML = content ? content.innerHTML : `<p>No content found for ${title}.</p>`;
     }
