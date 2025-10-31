@@ -5,8 +5,13 @@ const TaskbarManager = (() => {
   function createButton(id, title, onClick) {
     const taskBtn = document.createElement("button");
     taskBtn.classList.add("task-button", "active");
+
     taskBtn.textContent = title;
     taskBtn.dataset.id = id;
+
+    taskBtn.setAttribute('role', 'button'); 
+    taskBtn.setAttribute('aria-pressed', 'false');
+
     taskBtn.addEventListener("click", onClick);
     taskbar.appendChild(taskBtn);
     return taskBtn;

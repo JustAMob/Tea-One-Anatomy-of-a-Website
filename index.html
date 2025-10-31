@@ -72,8 +72,8 @@
 
         <li>
             <a href="#notepadApp" class="desktop-icon-link">
-            <img src="assets/images/Retro-CloseNotepad.png" alt="My Computer Closed" class="closed-icon">
-            <img src="assets/images/Retro-OpenNotepad.png" alt="My Computer Open" class="open-icon">
+            <img src="assets/images/Retro-CloseNotepad.png" alt="Notepad Closed" class="closed-icon">
+            <img src="assets/images/Retro-OpenNotepad.png" alt="Notepad Open" class="open-icon">
             <span>Notepad</span>
             </a>
         </li>
@@ -93,16 +93,16 @@
             <div class="window-controls">
             <button onclick="WindowManager.minimize(this)">
 
-            <img src="assets/images/Retro-Minimize.png" alt="Minimize Icon">
+            <img src="assets/images/Retro-Minimize.png" aria-label="Minimize Window" alt="Minimize Icon">
             </button>
     
             <button class="maximize-restore-toggle" onclick="WindowManager.maximize(this)">
-            <img src="assets/images/Retro-Maximize.png" alt="Maximize Icon" class="maximize-icon">
-            <img src="assets/images/Retro-Restore.png" alt="Restore Icon" class="restore-icon hidden"> 
+            <img src="assets/images/Retro-Maximize.png" aria-label="Maximize Window" alt="Maximize Icon" class="maximize-icon">
+            <img src="assets/images/Retro-Restore.png" aria-label=" Restore Window" alt="Restore Icon" class="restore-icon hidden"> 
             </button>
     
             <button onclick="WindowManager.close(this)">
-            <img src="assets/images/Retro-Close.png" alt="Close Icon">
+            <img src="assets/images/Retro-Close.png" aria-label="Close Window" alt="Close Icon">
             </button>
 
             </div>
@@ -333,18 +333,18 @@
         
          <!-- Start button -->
         <div class="start-button">
-            <button>‎end‎</button>
+            <button aria-label="Refresh Button">‎end‎</button>
         </div>
 
         <div id="task-buttons" class="task-buttons"></div>
 
         <!-- System tray -->
         <div class="system-tray">
-            <span class="lang">EN</span>
+            <span class="lang" aria-label="Current System Language">EN</span>
             <span> | </span>
-            <span id="currentDate"></span>
+            <span id="currentDate" role="status" aria-live="polite"></span>
             <span> | </span>
-            <span id="currentTime"></span>
+            <span id="currentTime" role="status" aria-live="polite"></span>
         </div>
 
 
