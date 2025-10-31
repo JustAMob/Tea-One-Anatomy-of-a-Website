@@ -1,4 +1,3 @@
-
 const TaskbarManager = (() => {
   const taskbar = document.getElementById("task-buttons");
 
@@ -20,18 +19,30 @@ const TaskbarManager = (() => {
   }
 
   function activateButton(id) {
-    const btn = document.querySelector(`.task-button[data-id="${id}"]`);
-    if (btn) btn.classList.add("active");
+    try {
+      const btn = document.querySelector(`.task-button[data-id="${id}"]`);
+      if (btn) btn.classList.add("active");
+    } catch (err) {
+      console.error(`TaskbarManager.activateButton failed for ${id}:`, err);
+    }
   }
 
   function deactivateButton(id) {
-    const btn = document.querySelector(`.task-button[data-id="${id}"]`);
-    if (btn) btn.classList.remove("active");
+    try {
+      const btn = document.querySelector(`.task-button[data-id="${id}"]`);
+      if (btn) btn.classList.remove("active");
+    } catch (err) {
+      console.error(`TaskbarManager.deactivateButton failed for ${id}:`, err);
+    }
   }
 
   function removeButton(id) {
-    const btn = document.querySelector(`.task-button[data-id="${id}"]`);
-    if (btn) btn.remove();
+    try {
+      const btn = document.querySelector(`.task-button[data-id="${id}"]`);
+      if (btn) btn.remove();
+    } catch (err) {
+      console.error(`TaskbarManager.removeButton failed for ${id}:`, err);
+    }
   }
 
   return { createButton, activateButton, deactivateButton, removeButton };

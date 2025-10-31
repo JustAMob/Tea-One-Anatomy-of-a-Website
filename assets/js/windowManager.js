@@ -4,9 +4,13 @@ const WindowManager = (() => {
   let offsetX = 0, offsetY = 0;
 
   function bringToFront(win) {
-    document.querySelectorAll(".window").forEach(w => w.classList.remove("active"));
-    win.classList.add("active");
-    win.style.zIndex = ++zCounter;
+    try {
+      document.querySelectorAll(".window").forEach(w => w.classList.remove("active"));
+      win.classList.add("active");
+      win.style.zIndex = ++zCounter;
+    } catch (err) {
+      console.error("WindowManager.bringToFront failed:", err);
+    }
   }
 
   function createWindow(id, title) {
@@ -17,15 +21,6 @@ const WindowManager = (() => {
         TaskbarManager.activateButton(id);
         activateIcon(id);
       }
-      bringToFront(existingWindow);
-      return;
-    }
-
-    const template = document.getElementById("windowTemplate");
-    if (!template) {
-      alert("System error: Missing window template.");
-      return;
-    }
 
     const newWin = template.cloneNode(true);
     newWin.classList.remove("hidden");
@@ -70,7 +65,6 @@ const WindowManager = (() => {
       } else {
         minimize(newWin);
       }
-    });
 
     activateIcon(id);
     bringToFront(newWin);
@@ -121,6 +115,10 @@ function minimize(btn) {
       if (win.dataset.oldPos) {
         Object.assign(win.style, JSON.parse(win.dataset.oldPos));
       }
+
+      setTimeout(() => win.classList.remove("animated"), 300);
+    } catch (err) {
+      console.error("WindowManager.maximize failed:", err);
     }
 
     setTimeout(() => win.classList.remove("animated"), 300);
@@ -154,10 +152,13 @@ function minimize(btn) {
     });
   }
 
-  function dragEnd() {
-    document.removeEventListener("mousemove", dragMove);
-    document.removeEventListener("mouseup", dragEnd);
-    currentWindow = null;
+  function deactivateIcon(id) {
+    try {
+      const iconLink = document.querySelector(`.desktop a[href="#${id}"]`);
+      if (iconLink) iconLink.classList.remove("active");
+    } catch (err) {
+      console.error(`WindowManager.deactivateIcon failed for ${id}:`, err);
+    }
   }
 
   function fadeIn(win) {
