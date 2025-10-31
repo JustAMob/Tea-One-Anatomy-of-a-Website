@@ -2,78 +2,29 @@ const WindowManager = (() => {
   let zCounter = 100;
   let currentWindow = null;
   let offsetX = 0, offsetY = 0;
-  
-  
-  const template = document.querySelector(".window.template");
-  if (!template) {
-      console.error("Window template is missing from the DOM!");
-      // Fallback - This should ideally not happen if HTML is correct
-      return { createWindow: () => console.error("Template missing") }; 
-  }
 
   function bringToFront(win) {
-    try {
-      document.querySelectorAll(".window").forEach(w => w.classList.remove("active"));
-      win.classList.add("active");
-      win.style.zIndex = ++zCounter;
-    } catch (err) {
-      console.error("WindowManager.bringToFront failed:", err);
-    }
+    document.querySelectorAll(".window").forEach(w => w.classList.remove("active"));
+    win.classList.add("active");
+    win.style.zIndex = ++zCounter;
   }
-
-  function activateIcon(id) {
-    const iconLink = document.querySelector(`.desktop a[href="#${id}"]`);
-    if (iconLink) iconLink.classList.add("active");
-  }
-
-  function deactivateIcon(id) {
-    try {
-      const iconLink = document.querySelector(`.desktop a[href="#${id}"]`);
-      if (iconLink) iconLink.classList.remove("active");
-    } catch (err) {
-      console.error(`WindowManager.deactivateIcon failed for ${id}:`, err);
-    }
-  }
-
-  function fadeIn(win) {
-    win.classList.add("animated");
-    win.style.display = "flex";
-    win.style.opacity = '0';
-    setTimeout(() => {
-      win.style.opacity = '1';
-      win.classList.remove("animated");
-    }, 150);
-  }
-  
-  // Minimize must be defined before createWindow uses it
-  function minimize(win) {
-    if (!win) return;
-
-    win.classList.add("animated");
-    win.style.opacity = '0';
-    setTimeout(() => {
-      win.style.display = 'none';
-      win.style.opacity = '1';
-      win.classList.remove("animated");
-    }, 150);
-
-    
-    TaskbarManager.deactivateButton(win.dataset.id); 
-    deactivateIcon(win.dataset.id);
-  }
-
 
   function createWindow(id, title) {
     let existingWindow = document.querySelector(`.window[data-id="${id}"]`);
     if (existingWindow) {
       if (existingWindow.style.display === "none") {
         fadeIn(existingWindow);
-        
-        TaskbarManager.activateButton(id); 
+        TaskbarManager.activateButton(id);
         activateIcon(id);
       }
       bringToFront(existingWindow);
-      return; 
+      return;
+    }
+
+    const template = document.getElementById("windowTemplate");
+    if (!template) {
+      alert("System error: Missing window template.");
+      return;
     }
 
     const newWin = template.cloneNode(true);
@@ -95,7 +46,9 @@ const WindowManager = (() => {
 
     const body = newWin.querySelector(".window-body");
     if (body) {
+    
       body.setAttribute('tabindex', '0');
+    
       const content = document.getElementById(id);
       body.innerHTML = content ? content.innerHTML : `<p>No content found for ${title}.</p>`;
     }
@@ -109,7 +62,6 @@ const WindowManager = (() => {
     newWin.querySelector(".minimize-button")?.addEventListener("click", () => minimize(newWin));
     newWin.querySelector(".window-controls button:last-child")?.addEventListener("click", () => close(newWin));
 
-    
     TaskbarManager.createButton(id, title, () => {
       if (newWin.style.display === "none") {
         fadeIn(newWin);
@@ -118,22 +70,35 @@ const WindowManager = (() => {
       } else {
         minimize(newWin);
       }
-      bringToFront(newWin); // Bring to front when clicked in taskbar
     });
 
-    bringToFront(newWin); // Bring to front when initially created
+    activateIcon(id);
+    bringToFront(newWin);
   }
 
+function minimize(btn) {
+  const win = btn.closest(".window");
+  if (!win) return;
+
+  win.classList.add("animated");
+  win.style.opacity = '0';
+  setTimeout(() => {
+    win.style.display = 'none';
+    win.style.opacity = '1';
+    win.classList.remove("animated");
+  }, 150);
+
+  TaskbarManager.deactivateButton(win.dataset.id);
+  deactivateIcon(win.dataset.id);
+}
 
   function close(win) {
     win.classList.add("animated");
     win.style.opacity = '0';
     setTimeout(() => win.remove(), 150);
-    
-    TaskbarManager.removeButton(win.dataset.id); 
+    TaskbarManager.removeButton(win.dataset.id);
     deactivateIcon(win.dataset.id);
   }
-
 
   function maximize(btn) {
     const win = btn.closest(".window");
@@ -156,8 +121,7 @@ const WindowManager = (() => {
       if (win.dataset.oldPos) {
         Object.assign(win.style, JSON.parse(win.dataset.oldPos));
       }
-    } 
-   
+    }
 
     setTimeout(() => win.classList.remove("animated"), 300);
   }
@@ -189,13 +153,32 @@ const WindowManager = (() => {
       position: "fixed"
     });
   }
-  
+
   function dragEnd() {
-    currentWindow = null;
     document.removeEventListener("mousemove", dragMove);
     document.removeEventListener("mouseup", dragEnd);
+    currentWindow = null;
   }
 
+  function fadeIn(win) {
+    win.classList.add("animated");
+    win.style.display = "flex";
+    win.style.opacity = '0';
+    setTimeout(() => {
+      win.style.opacity = '1';
+      win.classList.remove("animated");
+    }, 150);
+  }
+
+  function activateIcon(id) {
+    const iconLink = document.querySelector(`.desktop a[href="#${id}"]`);
+    if (iconLink) iconLink.classList.add("active");
+  }
+
+  function deactivateIcon(id) {
+    const iconLink = document.querySelector(`.desktop a[href="#${id}"]`);
+    if (iconLink) iconLink.classList.remove("active");
+  }
 
   return { createWindow, close, minimize, maximize, bringToFront, dragStart };
 })();
