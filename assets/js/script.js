@@ -196,13 +196,40 @@ function handleGlobalShortcuts(e) {
                     }
                     break;
                 
-                case 'm': // Ctrl + M: Minimize Active Window
-                    const minimizeButton = activeWindow.querySelector('.window-controls button:first-child');
-                    if (minimizeButton) {
-                        minimizeButton.click();
-                        return;
+                case 'm':
+                // Check for Ctrl + M (without Shift, as Ctrl+Shift+M is maximize)
+                if (e.ctrlKey && !e.shiftKey) { 
+                    e.preventDefault();
+
+                    const activeWindow = document.querySelector('.window.active');
+                    
+                    if (activeWindow) {
+                        // Case 1: A window is active -> MINIMIZE it.
+                        const minimizeButton = activeWindow.querySelector('.window-controls button:first-child');
+                        if (minimizeButton) {
+                            minimizeButton.click(); 
+                        }
+                    } else {
+                        // Case 2: No window is active -> RESTORE the most recently minimized window.
+                        // Minimized windows have the class 'hidden'.
+                        const minimizedWindows = Array.from(document.querySelectorAll('.window.hidden:not(.template)'));
+                        
+                        if (minimizedWindows.length > 0) {
+                            // Target the first minimized window found.
+                            const windowToRestore = minimizedWindows[0]; 
+                            const winId = windowToRestore.id;
+                            
+                            // *** Simulate a click on the window's taskbar button. ***
+                            const taskbarButton = document.querySelector(`.task-buttons button[data-window-id="${winId}"]`);
+                            
+                            if (taskbarButton) {
+                                taskbarButton.click();
+                            }
+                        }
                     }
-                    break;
+                    return; // Exit switch after handling Ctrl+M
+                }
+                break;
                     
                 case 'tab': // Ctrl + Tab (Cycle Windows)
                     cycleWindows(activeWindow);
@@ -241,5 +268,8 @@ function cycleWindows(currentActiveWindow) {
     // Assuming WindowManager.bringToFront is defined elsewhere
     WindowManager.bringToFront(nextWindow);
     
-    nextWindow.focus(); 
+    const nextWindowBody = nextWindow.querySelector('.window-body');
+    if (nextWindowBody) {
+        nextWindowBody.focus(); 
+    }
 }
