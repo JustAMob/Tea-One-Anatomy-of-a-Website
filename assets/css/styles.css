@@ -498,9 +498,13 @@ a, button, .task-button, .window-controls button {
 
 .window-menu a:focus-visible, 
 .window-menu a:focus {
-    background-color: #ce4c26; 
+    
+    background-color: transparent; 
     color: #000000;
+    
   
+    border-bottom: 3px solid #000000; 
+    padding-bottom: 0;
 }
 
 /* Address Bar */

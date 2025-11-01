@@ -62,6 +62,17 @@ const WindowManager = (() => {
     newWin.querySelector(".minimize-button")?.addEventListener("click", () => minimize(newWin));
     newWin.querySelector(".window-controls button:last-child")?.addEventListener("click", () => close(newWin));
 
+
+    newWin.querySelectorAll(".window-menu-link").forEach(link => {
+    link.addEventListener("click", e => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href").replace("#", "");
+        const targetTitle = link.textContent;
+        
+        WindowManager.createWindow(targetId, targetTitle);
+    });
+    });
+
     TaskbarManager.createButton(id, title, () => {
       if (newWin.style.display === "none") {
         fadeIn(newWin);
