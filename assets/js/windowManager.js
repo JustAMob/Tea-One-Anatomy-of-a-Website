@@ -10,8 +10,11 @@ const WindowManager = (() => {
   }
 
   function createWindow(id, title) {
+    Logger.info(`Creating window: ${id} (${title})`);
+
     let existingWindow = document.querySelector(`.window[data-id="${id}"]`);
     if (existingWindow) {
+      Logger.debug(`Window already exists: ${id}`);
       if (existingWindow.style.display === "none") {
         fadeIn(existingWindow);
         TaskbarManager.activateButton(id);
@@ -59,7 +62,8 @@ const WindowManager = (() => {
       newWin.classList.remove("animated");
     }, 150);
 
-    newWin.querySelector(".minimize-button")?.addEventListener("click", () => minimize(newWin));
+    // ✅ FIXED — passes button, not window
+    newWin.querySelector(".minimize-button")?.addEventListener("click", (e) => minimize(e.currentTarget));
     newWin.querySelector(".window-controls button:last-child")?.addEventListener("click", () => close(newWin));
 
     TaskbarManager.createButton(id, title, () => {
@@ -68,7 +72,7 @@ const WindowManager = (() => {
         TaskbarManager.activateButton(id);
         activateIcon(id);
       } else {
-        minimize(newWin);
+        minimize(newWin.querySelector(".minimize-button"));
       }
     });
 
@@ -92,7 +96,6 @@ function minimize(btn) {
   deactivateIcon(win.dataset.id);
 }
 
-  function close(win) {
     win.classList.add("animated");
     win.style.opacity = '0';
     setTimeout(() => win.remove(), 150);
@@ -104,6 +107,7 @@ function minimize(btn) {
     const win = btn.closest(".window");
     if (!win) return;
 
+    Logger.debug("Toggling maximize:", win.dataset.id);
     win.classList.add("animated");
 
     if (!win.classList.contains("maximized")) {
@@ -116,10 +120,12 @@ function minimize(btn) {
       });
       win.classList.add("maximized");
       Object.assign(win.style, { top: '', left: '', width: '', height: '', transform: '' });
+      Logger.info(`Window maximized: ${win.dataset.id}`);
     } else {
       win.classList.remove("maximized");
       if (win.dataset.oldPos) {
         Object.assign(win.style, JSON.parse(win.dataset.oldPos));
+        Logger.info(`Window restored: ${win.dataset.id}`);
       }
     }
 
@@ -135,6 +141,7 @@ function minimize(btn) {
     win.style.zIndex = ++zCounter;
     document.addEventListener("mousemove", dragMove);
     document.addEventListener("mouseup", dragEnd);
+    Logger.debug("Started dragging:", win.dataset.id);
   }
 
   function dragMove(e) {
