@@ -4,18 +4,14 @@ const WindowManager = (() => {
   let offsetX = 0, offsetY = 0;
 
   function bringToFront(win) {
-    Logger.debug("Bringing window to front:", win.dataset.id);
     document.querySelectorAll(".window").forEach(w => w.classList.remove("active"));
     win.classList.add("active");
     win.style.zIndex = ++zCounter;
   }
 
   function createWindow(id, title) {
-    Logger.info(`Creating window: ${id} (${title})`);
-
     let existingWindow = document.querySelector(`.window[data-id="${id}"]`);
     if (existingWindow) {
-      Logger.debug(`Window already exists: ${id}`);
       if (existingWindow.style.display === "none") {
         fadeIn(existingWindow);
         TaskbarManager.activateButton(id);
@@ -27,7 +23,6 @@ const WindowManager = (() => {
 
     const template = document.getElementById("windowTemplate");
     if (!template) {
-      Logger.error("Missing window template!");
       alert("System error: Missing window template.");
       return;
     }
@@ -51,7 +46,9 @@ const WindowManager = (() => {
 
     const body = newWin.querySelector(".window-body");
     if (body) {
+    
       body.setAttribute('tabindex', '0');
+    
       const content = document.getElementById(id);
       body.innerHTML = content ? content.innerHTML : `<p>No content found for ${title}.</p>`;
     }
@@ -62,8 +59,7 @@ const WindowManager = (() => {
       newWin.classList.remove("animated");
     }, 150);
 
-
-    newWin.querySelector(".minimize-button")?.addEventListener("click", (e) => minimize(e.currentTarget));
+    newWin.querySelector(".minimize-button")?.addEventListener("click", () => minimize(newWin));
     newWin.querySelector(".window-controls button:last-child")?.addEventListener("click", () => close(newWin));
 
     TaskbarManager.createButton(id, title, () => {
@@ -72,7 +68,7 @@ const WindowManager = (() => {
         TaskbarManager.activateButton(id);
         activateIcon(id);
       } else {
-        minimize(newWin.querySelector(".minimize-button"));
+        minimize(newWin);
       }
     });
 
@@ -80,33 +76,26 @@ const WindowManager = (() => {
     bringToFront(newWin);
   }
 
-  function minimize(btn) {
-    const win = btn.closest(".window");
-    if (!win) return;
+function minimize(btn) {
+  const win = btn.closest(".window");
+  if (!win) return;
 
-    Logger.debug("Minimizing window:", win.dataset.id);
+  win.classList.add("animated");
+  win.style.opacity = '0';
+  setTimeout(() => {
+    win.style.display = 'none';
+    win.style.opacity = '1';
+    win.classList.remove("animated");
+  }, 150);
 
-    win.classList.add("animated");
-    win.style.opacity = '0';
-    setTimeout(() => {
-      win.style.display = 'none';
-      win.style.opacity = '1';
-      win.classList.remove("animated");
-      Logger.info(`Window minimized: ${win.dataset.id}`);
-    }, 150);
-
-    TaskbarManager.deactivateButton(win.dataset.id);
-    deactivateIcon(win.dataset.id);
-  }
+  TaskbarManager.deactivateButton(win.dataset.id);
+  deactivateIcon(win.dataset.id);
+}
 
   function close(win) {
-    Logger.warn("Closing window:", win.dataset.id);
     win.classList.add("animated");
     win.style.opacity = '0';
-    setTimeout(() => {
-      win.remove();
-      Logger.info(`Window closed: ${win.dataset.id}`);
-    }, 150);
+    setTimeout(() => win.remove(), 150);
     TaskbarManager.removeButton(win.dataset.id);
     deactivateIcon(win.dataset.id);
   }
@@ -115,7 +104,6 @@ const WindowManager = (() => {
     const win = btn.closest(".window");
     if (!win) return;
 
-    Logger.debug("Toggling maximize:", win.dataset.id);
     win.classList.add("animated");
 
     if (!win.classList.contains("maximized")) {
@@ -128,12 +116,10 @@ const WindowManager = (() => {
       });
       win.classList.add("maximized");
       Object.assign(win.style, { top: '', left: '', width: '', height: '', transform: '' });
-      Logger.info(`Window maximized: ${win.dataset.id}`);
     } else {
       win.classList.remove("maximized");
       if (win.dataset.oldPos) {
         Object.assign(win.style, JSON.parse(win.dataset.oldPos));
-        Logger.info(`Window restored: ${win.dataset.id}`);
       }
     }
 
@@ -149,7 +135,6 @@ const WindowManager = (() => {
     win.style.zIndex = ++zCounter;
     document.addEventListener("mousemove", dragMove);
     document.addEventListener("mouseup", dragEnd);
-    Logger.debug("Started dragging:", win.dataset.id);
   }
 
   function dragMove(e) {
@@ -170,14 +155,12 @@ const WindowManager = (() => {
   }
 
   function dragEnd() {
-    if (currentWindow) Logger.debug("Stopped dragging:", currentWindow.dataset.id);
     document.removeEventListener("mousemove", dragMove);
     document.removeEventListener("mouseup", dragEnd);
     currentWindow = null;
   }
 
   function fadeIn(win) {
-    Logger.debug("Fading in window:", win.dataset.id);
     win.classList.add("animated");
     win.style.display = "flex";
     win.style.opacity = '0';
