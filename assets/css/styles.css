@@ -56,7 +56,7 @@ html, body {
   line-height: 1.5;
   margin: 0; 
   padding: 0;
-  overflow-x: hidden !important;
+  
 }
 
 img, picture, video, canvas, svg {
@@ -92,7 +92,7 @@ body {
   background-size: cover;
   background-size: cover;
 
-  overflow: hidden;
+  
   display: flex;
   flex-direction: column;
 
