@@ -292,13 +292,15 @@ a, button, .task-button, .window-controls button {
 .desktop-icon-link .closed-icon {
   /* Ensure the default icon is displayed */
   display: block !important; 
-  opacity: 1;
+  opacity: 1 !important;
+   transition: opacity 0.2s ease;
+
 }
 
 .desktop-icon-link .open-icon {
     /* Hidden by opacity, but ready to be displayed */
     display: block !important; 
-    opacity: 0;
+    opacity: 0 !important;
     transition: opacity 0.2s; 
 }
 
@@ -310,6 +312,7 @@ a, button, .task-button, .window-controls button {
 /* 3. Active State (Icon is OPENNNN) */
 .desktop-icon-link.active .closed-icon {
     /* Hide the closed icon */
+    
     opacity: 0;
 }
 
