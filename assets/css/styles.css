@@ -51,7 +51,7 @@ body.light-mode .desktop a:hover span {
 
 html, body {
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
   font-size: 100%;
   line-height: 1.5;
   margin: 0; 
@@ -550,7 +550,7 @@ a, button, .task-button, .window-controls button {
   
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow-y: auto;
 
 }
 
