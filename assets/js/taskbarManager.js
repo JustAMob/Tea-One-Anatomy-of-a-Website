@@ -1,3 +1,4 @@
+
 const TaskbarManager = (() => {
   const taskbar = document.getElementById("task-buttons");
 
@@ -44,32 +45,17 @@ const TaskbarManager = (() => {
 
   function activateButton(id) {
     const btn = document.querySelector(`.task-button[data-id="${id}"]`);
-    if (btn) {
-      btn.classList.add("active");
-      console.log(`✅ Activated task button: ${id}`);
-    } else {
-      console.warn(`⚠️ Cannot activate — no button found with id: ${id}`);
-    }
+    if (btn) btn.classList.add("active");
   }
 
   function deactivateButton(id) {
     const btn = document.querySelector(`.task-button[data-id="${id}"]`);
-    if (btn) {
-      btn.classList.remove("active");
-      console.log(`🟡 Deactivated task button: ${id}`);
-    } else {
-      console.warn(`⚠️ Cannot deactivate — no button found with id: ${id}`);
-    }
+    if (btn) btn.classList.remove("active");
   }
 
   function removeButton(id) {
     const btn = document.querySelector(`.task-button[data-id="${id}"]`);
-    if (btn) {
-      btn.remove();
-      console.log(`🗑️ Removed task button: ${id}`);
-    } else {
-      console.warn(`⚠️ Cannot remove — no button found with id: ${id}`);
-    }
+    if (btn) btn.remove();
   }
 
   return { createButton, activateButton, deactivateButton, removeButton };
