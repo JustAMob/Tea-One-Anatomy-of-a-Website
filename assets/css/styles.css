@@ -50,27 +50,18 @@ body.light-mode .desktop a:hover span {
 }
 
 html, body {
-  height: auto;
-  overflow: auto;
+  height: 100%;
+  overflow: hidden;
   font-size: 100%;
   line-height: 1.5;
   margin: 0; 
   padding: 0;
- 
-
-}
-img {
-  display: block !important;
-  max-width: 150px !important;
-  height: auto !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  
 }
 
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
-  height: auto;
 }
 
 button, input, select, textarea {
@@ -292,15 +283,13 @@ a, button, .task-button, .window-controls button {
 .desktop-icon-link .closed-icon {
   /* Ensure the default icon is displayed */
   display: block !important; 
-  opacity: 1 !important;
-   transition: opacity 0.2s ease;
-
+  opacity: 1;
 }
 
 .desktop-icon-link .open-icon {
     /* Hidden by opacity, but ready to be displayed */
     display: block !important; 
-    opacity: 0 !important;
+    opacity: 0;
     transition: opacity 0.2s; 
 }
 
@@ -312,7 +301,6 @@ a, button, .task-button, .window-controls button {
 /* 3. Active State (Icon is OPENNNN) */
 .desktop-icon-link.active .closed-icon {
     /* Hide the closed icon */
-    
     opacity: 0;
 }
 
@@ -562,10 +550,7 @@ a, button, .task-button, .window-controls button {
   
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  max-height: 100%;
+  overflow-y: hidden;
 
 }
 
@@ -727,74 +712,14 @@ a, button, .task-button, .window-controls button {
 
 
 
-/* === CONTENT Styles and Visibility === */
+/* === CONTENT VISIBILITY === */
 .content-block {
   display: none;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 .content-block:target {
-  display: block; 
-}
-.custom-wide {
-  width: 70vw !important;      
-  max-width: 1200px;           
-  height: auto !important;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  background: transparent;
-  transform: scale(1.8);
-
-  /* spacing */
-        
-  margin-top: 2.5rem;           
-  margin-bottom: 2.5rem;
-
-  
-  object-fit: contain;
-  image-rendering: auto;
 }
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 0.5rem; 
-  flex-wrap: wrap; 
-  text-align: center;
-}
-
-.container img {
-
-  display: block;
-  margin: 0 auto 10px;
-}
-
-/* Group each icon, title, and paragraph together visually */
-.container h3,
-.container p {
-  flex-basis: 100%;
-}
-
-.container h3 {
-  font-size: 1.0rem;
-  margin: 5px 0;
-}
-
-.container p {
-  font-size: 0.9rem;
-  line-height: 1.3;
-  margin-bottom: 20px;
-}
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
 
 /* Default visible content when no hash is active */
 .window-body:not(:has(:target)) #welcome {
